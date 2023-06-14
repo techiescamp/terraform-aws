@@ -6,12 +6,14 @@ Terraform AWS Cloud examples for beginners
 terraform init \
     -backend-config="key=dev/vpc.tfstate" \
     -backend-config="bucket=dcube-terraform-state" \
-    -backend-config="region=us-west-2" 
+    -backend-config="region=us-west-2" \
+    -backend-config="dynamodb_table=terraform-state-lock"
 
-terraform destory \
+terraform destroy \
     -backend-config="key=dev/vpc.tfstate" \
     -backend-config="bucket=dcube-terraform-state" \
-    -backend-config="region=us-west-2" 
+    -backend-config="region=us-west-2" \
+    -backend-config="dynamodb_table=terraform-state-lock"
 
 
 ## Requirements
