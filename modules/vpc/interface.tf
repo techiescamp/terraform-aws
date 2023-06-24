@@ -67,3 +67,8 @@ variable "availability_zones" {
   type        = list(any)
   description = "List of availability zones"
 }
+
+variable "subnet_ids" {
+  type    = list(string)
+  default = ["subnet-1", "subnet-2", "subnet-3"]
+}
