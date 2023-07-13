@@ -1,20 +1,20 @@
 # Create a DB security group
 resource "aws_security_group" "rds_security_group" {
-  name        = "rds-security-group"
+  name        = var.sg_name
   description = "Security group for RDS instance"
 
   ingress {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.cidr_block
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.cidr_block
   }
 
   tags = merge(
@@ -23,7 +23,7 @@ resource "aws_security_group" "rds_security_group" {
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
-      Application = "petclinic-rds-sg"
+      Application = var.application,
     },
     var.tags
   )
@@ -33,7 +33,7 @@ resource "aws_db_instance" "rds_instance" {
   identifier                  = var.db_name
   engine                      = "mysql"
   instance_class              = var.db_instance_class
-  allocated_storage           = 10
+  allocated_storage           = var.db_storage_size
   storage_type                = "gp2"
   # manage_master_user_password = var.set_secret_manager_password ? true : false
   manage_master_user_password = var.set_secret_manager_password ? true : null
@@ -41,12 +41,13 @@ resource "aws_db_instance" "rds_instance" {
   password                    = var.set_db_password ? var.db_password : null
   db_subnet_group_name        = "default"
   vpc_security_group_ids      = [aws_security_group.rds_security_group.id]
-  backup_retention_period     = 7
-  delete_automated_backups    = true
-  copy_tags_to_snapshot       = true
-  publicly_accessible         = true
-  skip_final_snapshot         = true
-  apply_immediately           = true
+  backup_retention_period     = var.backup_retention_period
+  multi_az                    = var.multi_az
+  delete_automated_backups    = var.delete_automated_backups
+  copy_tags_to_snapshot       = var.copy_tags_to_snapshot
+  publicly_accessible         = var.publicly_accessible
+  skip_final_snapshot         = var.skip_final_snapshot
+  apply_immediately           = var.apply_immediately
 
   tags = merge(
   {
@@ -54,7 +55,7 @@ resource "aws_db_instance" "rds_instance" {
     Environment = var.environment,
     Owner       = var.owner,
     CostCenter  = var.cost_center,
-    Application = "pet-clinic"
+    Application = var.application,
   },
   var.tags
  )
@@ -64,16 +65,3 @@ resource "aws_db_instance" "rds_instance" {
 data "aws_db_instance" "rds_instance" {
   db_instance_identifier = aws_db_instance.rds_instance.id
 }
-
-
-# resource "aws_ssm_parameter" "rds_endpoint" {
-#   name  = var.parameter_name
-#   type  = "String"
-#   value = data.aws_db_instance.rds_instance.endpoint
-# }
-
-# resource "local_file" "password_file" {
-#   count      = var.manage_master_user_password ? 0 : 1
-#   filename   = "password.txt"
-#   content    = var.db_password
-# }
