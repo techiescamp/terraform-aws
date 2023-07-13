@@ -31,7 +31,7 @@ variable "region" {
 # VPC Variables
 
 variable "vpc_cidr_block" {
-  default = "10.0.0.0/16"
+  default     = "10.0.0.0/16"
   type        = string
   description = "CIDR block for the VPC"
 }
@@ -40,25 +40,35 @@ variable "vpc_cidr_block" {
 
 variable "public_subnet_cidr_blocks" {
   default     = ["10.0.0.0/24", "10.0.2.0/24"]
-  type        = list
+  type        = list(any)
   description = "List of public subnet CIDR blocks"
 }
 
 variable "app_subnet_cidr_blocks" {
   default     = ["10.0.1.0/24", "10.0.3.0/24"]
-  type        = list
+  type        = list(any)
   description = "List of application subnet CIDR blocks"
 }
 
 variable "db_subnet_cidr_blocks" {
   default     = ["10.0.1.0/24", "10.0.3.0/24"]
-  type        = list
+  type        = list(any)
   description = "List of Database subnet CIDR blocks"
 }
 
+variable "management_subnet_cidr_blocks" {
+  default     = ["10.0.1.0/24", "10.0.3.0/24"]
+  type        = list(any)
+  description = "List of management subnet CIDR blocks"
+}
 
 variable "availability_zones" {
   default     = ["us-west-1a", "us-west-1b"]
-  type        = list
+  type        = list(any)
   description = "List of availability zones"
+}
+
+variable "subnet_ids" {
+  type    = list(string)
+  default = ["subnet-1", "subnet-2", "subnet-3"]
 }
