@@ -113,3 +113,33 @@ variable "apply_immediately" {
   description = "Apply changes immediately to the RDS instance."
   type        = bool
 }
+
+variable "db_engine" {
+  description = "The database engine"
+  type        = string
+}
+
+variable "db_storage_type" {
+  description = "The storage type for the database"
+  type        = string
+}
+
+variable "from_port" {
+  description = "The starting port for ingress rules"
+  type        = number
+}
+
+variable "to_port" {
+  description = "The ending port for ingress rules"
+  type        = number
+}
+
+variable "protocol" {
+  description = "The protocol for ingress rules"
+  type        = string
+}
+
+variable "name" {
+  description = "The name attribute"
+  type        = string
+}

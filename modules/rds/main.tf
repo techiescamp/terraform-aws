@@ -4,9 +4,9 @@ resource "aws_security_group" "rds_security_group" {
   description = "Security group for RDS instance"
 
   ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
+    from_port   = var.from_port
+    to_port     = var.to_port
+    protocol    = var.protocol
     cidr_blocks = var.cidr_block
   }
 
@@ -14,12 +14,12 @@ resource "aws_security_group" "rds_security_group" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = var.cidr_block
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = merge(
     {
-      Name        = "petclinic-alb-sg",
+      Name        = "${var.name}-sg",
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
@@ -31,11 +31,10 @@ resource "aws_security_group" "rds_security_group" {
 
 resource "aws_db_instance" "rds_instance" {
   identifier                  = var.db_name
-  engine                      = "mysql"
+  engine                      = var.db_engine
   instance_class              = var.db_instance_class
   allocated_storage           = var.db_storage_size
-  storage_type                = "gp2"
-  # manage_master_user_password = var.set_secret_manager_password ? true : false
+  storage_type                = var.db_storage_type
   manage_master_user_password = var.set_secret_manager_password ? true : null
   username                    = var.db_username
   password                    = var.set_db_password ? var.db_password : null
@@ -51,7 +50,7 @@ resource "aws_db_instance" "rds_instance" {
 
   tags = merge(
   {
-    Name        = "petclinic-rds"
+    Name        = var.name,
     Environment = var.environment,
     Owner       = var.owner,
     CostCenter  = var.cost_center,
