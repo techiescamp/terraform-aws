@@ -33,6 +33,17 @@ variable "db_username" {
   type    = string
 }
 
+variable "manage_master_user_password" {
+  description = "To enable master user password or not"
+  type    = bool
+  default = false
+}
+
+variable "db_password" {
+  description = "Password for RDS"
+  type    = string
+}
+
 variable "db_name" {
   description = "The identifier for the RDS instance"
   type    = string

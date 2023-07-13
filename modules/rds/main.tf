@@ -35,7 +35,7 @@ resource "aws_db_instance" "rds_instance" {
   instance_class              = var.db_instance_class
   allocated_storage           = 10
   storage_type                = "gp2"
-  manage_master_user_password = true
+  manage_master_user_password = var.manage_master_user_password ? true : false
   username                    = var.db_username
   db_subnet_group_name        = "default"
   vpc_security_group_ids      = [aws_security_group.rds_security_group.id]
@@ -68,4 +68,10 @@ resource "aws_ssm_parameter" "rds_endpoint" {
   name  = var.parameter_name
   type  = "String"
   value = data.aws_db_instance.rds_instance.endpoint
+}
+
+resource "local_file" "password_file" {
+  count      = var.manage_master_user_password ? 0 : 1
+  filename   = "password.txt"
+  content    = var.db_password
 }
