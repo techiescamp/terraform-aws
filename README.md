@@ -15,26 +15,17 @@ terraform destroy \
     -backend-config="region=us-west-2" \
     -backend-config="dynamodb_table=terraform-state-lock"
 
+## RDS DB
 
-## Requirements
+cd into environments/dev/rds directory and run the following commands:
 
-1. Create VPC (10.0.0.0/16)
-2. Create Subnets
-    - Public Subnets (For LB)
-        - 10.0.1.0/24
-        - 10.0.2.0/24
-        - 10.0.3.0/24
-    - App Subnetes (Private Subnet)
-        - 10.0.4.0/24
-        - 10.0.5.0/24
-        - 10.0.6.0/24
-    - DB Subnetes (Priavet Subnet)
-        - 10.0.7.0/24
-        - 10.0.8.0/24
-        - 10.0.9.0/24
-3. Public subnets can talk to app subnets (only on specific ports using NAC) not DB subnets.
-4. App Subnets can talk to DB subnets (On specify ports using NACL)
+terraform init
 
+terraform plan -var-file=../../../vars/dev/rds.tfvars
+
+terraform apply -var-file=../../../vars/dev/rds.tfvars
+
+terraform destroy -var-file=../../../vars/dev/rds.tfvars
 
 ## Command Reference
 
