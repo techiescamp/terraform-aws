@@ -33,7 +33,7 @@ variable "db_username" {
   type    = string
 }
 
-variable "manage_master_user_password" {
+variable "set_secret_manager_password" {
   description = "To enable master user password or not"
   type    = bool
   default = false
@@ -57,4 +57,9 @@ variable "db_instance_class" {
 variable "parameter_name" {
   description = "The RDS instance class"
   type    = string
+}
+
+variable "set_db_password" {
+  description = "Condition to check for custom password"
+  type = string
 }

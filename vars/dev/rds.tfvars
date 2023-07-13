@@ -6,5 +6,6 @@ db_username                 = "petclinic"
 db_name                     = "petclinic-mysql-rds"
 db_instance_class           = "db.t2.micro"
 parameter_name              = "/dev/petclinic/rds_endpoint"
-manage_master_user_password = false
+set_secret_manager_password = false
+set_db_password = true
 db_password                 = "rdssecret"
