@@ -1,17 +1,17 @@
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "instance-profile"
+  name = var.instance_profile
 
-  role = "instance_role"
+  role = var.instance_roles
 }
 
-resource "aws_security_group" "alb_sg" {
-  name_prefix = "alb-sg"
+resource "aws_security_group" "lb_sg" {
+  name_prefix = var.lb_security_group
 
   ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = var.from_port
+    to_port     = var.to_port
+    protocol    = var.protocol
+    cidr_blocks = var.cidr_block
   }
 
   egress {
@@ -23,43 +23,43 @@ resource "aws_security_group" "alb_sg" {
 
   tags = merge(
     {
-      Name        = "petclinic-alb-sg",
+      Name        = "${var.name}-lb-sg",
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
-      Application = "pet-clinic"
+      Application = var.application
     },
     var.tags
   )
 }
 resource "aws_lb" "petclinic" {
-  name               = "petclinic-alb"
-  internal           = false
-  load_balancer_type = "application"
+  name               = "${var.name}-lb"
+  internal           = var.internal
+  load_balancer_type = var.lb_type
 
   subnets         = var.subnets
   security_groups = [aws_security_group.alb_sg.id]
 
   tags = merge(
     {
-      Name        = "petclinic-alb",
+      Name        = "${var.name}-lb",
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
-      Application = "pet-clinic"
+      Application = var.application
     },
     var.tags
   )
 }
 
 resource "aws_security_group" "instance_sg" {
-  name_prefix = "petclinic-sg"
+  name_prefix = var.instance_sg
 
   ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = instance_from_port
+    to_port     = instance_to_port
+    protocol    = instance_protocol
+    cidr_blocks = instance_cidr_block
   }
 
   egress {
@@ -71,11 +71,11 @@ resource "aws_security_group" "instance_sg" {
 
   tags = merge(
     {
-      Name        = "petclinic-sg"
+      Name        = "${var.name}-instance-sg"
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
-      Application = "pet-clinic"
+      Application = var.application
     },
     var.tags
   )
@@ -83,26 +83,32 @@ resource "aws_security_group" "instance_sg" {
 
 
 resource "aws_lb_target_group" "petclinic" {
-  name_prefix = "pc-lb"
-  port        = 8080
-  protocol    = "HTTP"
+  name_prefix = var.target_group_name
+  port        = var.target_group_port
+  protocol    = var.target_group_protocol
   vpc_id      = var.vpc_id
-  target_type = "instance"
+  target_type = var.target_type
 
   health_check {
-    path                = "/"
-    port                = 8080
-    protocol            = "HTTP"
-    interval            = 30
-    timeout             = 5
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
+    path                = var.health_check_path
+    port                = var.health_check_port
+    protocol            = var.health_check_protocol
+    interval            = var.health_check_interval
+    timeout             = var.health_check_timeout
+    healthy_threshold   = var.health_check_healthy_threshold
+    unhealthy_threshold = var.health_check_unhealthy_threshold
   }
 
-  tags = {
-    Environment = var.environment
-    Terraform   = "true"
-  }
+  tags = merge(
+    {
+      Name        = "${var.name}-lb-target-group"
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
+    },
+    var.tags
+  )
 }
 
 resource "aws_lb_listener" "petclinic" {
