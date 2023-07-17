@@ -65,7 +65,3 @@ resource "aws_db_instance" "rds_instance" {
  )
 }
 
-# # Data source to retrieve RDS endpoint
-# data "aws_db_instance" "rds_instance" {
-#   db_instance_identifier = aws_db_instance.rds_instance.id
-# }

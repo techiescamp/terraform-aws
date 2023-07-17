@@ -10,8 +10,8 @@ db_storage_type             = "gp2"
 db_username                 = "techiescamp"
 db_instance_class           = "db.t2.micro"
 db_storage_size             = 20
-set_secret_manager_password = false
-set_db_password             = true
+set_secret_manager_password = true
+set_db_password             = false
 db_password                 = "rdssecret"
 
 # Security Group Vars
@@ -20,7 +20,7 @@ to_port                     = 3306
 protocol                    = "tcp"
 cidr_block                  = ["0.0.0.0/0"]
 
-# Back vars
+# Backup vars
 backup_retention_period     = 7
 delete_automated_backups    = true
 copy_tags_to_snapshot       = true
