@@ -1,27 +1,34 @@
+# Network Vars
 region                      = "us-west-2"
+subnet_ids                  = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
+multi_az                    = false
+publicly_accessible         = true
+
+# DB Vars
 db_engine                   = "mysql"
 db_storage_type             = "gp2"
-db_username                 = "petclinic"
-db_name                     = "petclinic-mysql-rds"
+db_username                 = "techiescamp"
 db_instance_class           = "db.t2.micro"
-db_storage_size             = 10
+db_storage_size             = 20
 set_secret_manager_password = false
 set_db_password             = true
 db_password                 = "rdssecret"
+
+# Security Group Vars
 from_port                   = 3306
 to_port                     = 3306
 protocol                    = "tcp"
-sg_name                     = "rds-security-group"
 cidr_block                  = ["0.0.0.0/0"]
+
+# Back vars
 backup_retention_period     = 7
-multi_az                    = false
 delete_automated_backups    = true
 copy_tags_to_snapshot       = true
-publicly_accessible         = true
 skip_final_snapshot         = true
 apply_immediately           = true
-name                        = "petclinic-rds"
-owner                       = "Techiescamp"
+
+# Tag Vars
+owner                       = "techiescamp-devops"
 environment                 = "dev"
-cost_center                 = "project-pet-clinic"
-application                 = "pet-clinic"
+cost_center                 = "techiescamp"
+application                 = "techiescamp-commerce"

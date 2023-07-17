@@ -1,6 +1,6 @@
 # Create a DB security group
 resource "aws_security_group" "rds_security_group" {
-  name        = var.sg_name
+  name        = "${var.environment}-${var.application}-rds-sg"
   description = "Security group for RDS instance"
 
   ingress {
@@ -19,7 +19,7 @@ resource "aws_security_group" "rds_security_group" {
 
   tags = merge(
     {
-      Name        = "${var.name}-sg",
+      Name        = "${var.environment}-${var.application}-rds-sg",
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
@@ -29,8 +29,13 @@ resource "aws_security_group" "rds_security_group" {
   )
 }
 
+resource "aws_db_subnet_group" "rds_subnet_group" {
+  name       = "${var.environment}-${var.application}-subnet-group"
+  subnet_ids = var.subnet_ids
+}
+
 resource "aws_db_instance" "rds_instance" {
-  identifier                  = var.db_name
+  identifier                  = "${var.environment}-${var.application}-db"
   engine                      = var.db_engine
   instance_class              = var.db_instance_class
   allocated_storage           = var.db_storage_size
@@ -38,7 +43,7 @@ resource "aws_db_instance" "rds_instance" {
   manage_master_user_password = var.set_secret_manager_password ? true : null
   username                    = var.db_username
   password                    = var.set_db_password ? var.db_password : null
-  db_subnet_group_name        = "default"
+  db_subnet_group_name        = aws_db_subnet_group.rds_subnet_group.name
   vpc_security_group_ids      = [aws_security_group.rds_security_group.id]
   backup_retention_period     = var.backup_retention_period
   multi_az                    = var.multi_az
@@ -50,7 +55,7 @@ resource "aws_db_instance" "rds_instance" {
 
   tags = merge(
   {
-    Name        = var.name,
+    Name        = "${var.environment}-${var.application}-db",
     Environment = var.environment,
     Owner       = var.owner,
     CostCenter  = var.cost_center,
@@ -60,7 +65,7 @@ resource "aws_db_instance" "rds_instance" {
  )
 }
 
-# Data source to retrieve RDS endpoint
-data "aws_db_instance" "rds_instance" {
-  db_instance_identifier = aws_db_instance.rds_instance.id
-}
+# # Data source to retrieve RDS endpoint
+# data "aws_db_instance" "rds_instance" {
+#   db_instance_identifier = aws_db_instance.rds_instance.id
+# }

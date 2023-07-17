@@ -33,10 +33,6 @@ variable "cost_center" {
   description = "Name of cost-center for this RDS"
 }
 
-variable "sg_name" {
-  type        = string
-  description = "RDS security group name"
-}
 
 variable "cidr_block" {
   type    = list(string)
@@ -56,11 +52,6 @@ variable "set_secret_manager_password" {
 
 variable "db_password" {
   description = "Password for RDS"
-  type    = string
-}
-
-variable "db_name" {
-  description = "The identifier for the RDS instance"
   type    = string
 }
 
@@ -139,7 +130,8 @@ variable "protocol" {
   type        = string
 }
 
-variable "name" {
-  description = "The name attribute"
-  type        = string
+
+variable "subnet_ids" {
+  description = "The IDs of the subnets"
+  type        = list(string)
 }

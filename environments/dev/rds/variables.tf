@@ -28,13 +28,8 @@ variable "application" {
   description = "Name of the application"
 }
 
-variable "sg_name" {
-  type        = string
-  description = "RDS security group name"
-}
-
 variable "cidr_block" {
-  type    = list(string)
+  type        = list(string)
   description = "CIDR block for RDS security group"
 }
 
@@ -45,33 +40,28 @@ variable "cost_center" {
 
 variable "db_username" {
   description = "The username for the RDS database"
-  type    = string
+  type        = string
 }
 
 variable "set_secret_manager_password" {
   description = "To enable master user password or not"
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "db_password" {
   description = "Password for RDS"
-  type    = string
-}
-
-variable "db_name" {
-  description = "The identifier for the RDS instance"
-  type    = string
+  type        = string
 }
 
 variable "db_instance_class" {
   description = "The RDS instance class"
-  type    = string
+  type        = string
 }
 
 variable "set_db_password" {
   description = "Condition to check for custom password"
-  type = string
+  type        = string
 }
 
 variable "db_storage_size" {
@@ -139,9 +129,10 @@ variable "protocol" {
   type        = string
 }
 
-variable "name" {
-  description = "The name attribute"
-  type        = string
+variable "subnet_ids" {
+  description = "The IDs of the subnets"
+  type        = list(string)
 }
+
 
 

@@ -5,16 +5,15 @@ provider "aws" {
 module "rds" {
   source                      = "../../../modules/rds"
   region                      = var.region
+  subnet_ids = var.subnet_ids
   db_engine                   = var.db_engine
   db_storage_type             = var.db_storage_type
   db_username                 = var.db_username
   set_secret_manager_password = var.set_secret_manager_password
   set_db_password             = var.set_db_password
   db_password                 = var.db_password
-  db_name                     = var.db_name
   db_instance_class           = var.db_instance_class
   db_storage_size             = var.db_storage_size
-  sg_name                     = var.sg_name
   from_port                   = var.from_port
   to_port                     = var.to_port
   protocol                    = var.protocol
@@ -26,7 +25,6 @@ module "rds" {
   publicly_accessible         = var.publicly_accessible
   skip_final_snapshot         = var.skip_final_snapshot
   apply_immediately           = var.apply_immediately
-  name                        = var.name
   owner                       = var.owner
   cost_center                 = var.cost_center
   environment                 = var.environment
