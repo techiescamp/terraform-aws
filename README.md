@@ -38,6 +38,6 @@ Show all outputs:
 <pre>terraform show</pre>
 
 
-check
+
 
 
