@@ -37,6 +37,7 @@ module "lb-asg" {
   vpc_id                          = var.vpc_id
   subnets                         = var.subnets
   public_access                   = var.public_access
+  user_data                       = var.user_data
   max_size                        = var.max_size
   min_size                        = var.min_size
   desired_capacity                = var.desired_capacity

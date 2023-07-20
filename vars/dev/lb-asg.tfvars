@@ -1,5 +1,3 @@
-region                         = "us-west-2"
-
 # iam_role
 instance_profile               = "FullAccessProfile"
 instance_role                  = "instance_role"
@@ -39,12 +37,19 @@ listener_protocol               = "HTTP"
 listener_type                   = "forward"
 
 #launch_template
+region                           = "us-west-2"
 ami_id                           = "ami-020f3ca563c92097b"
 instance_type                    = "t2.medium"
 key_name                         = "aswin-key"
 vpc_id                           = "vpc-0a5ca4a92c2e10163"
 subnets                          = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
 public_access                    = true
+
+#user_data
+user_data                        = <<-EOF
+                                    #!/bin/bash
+                                    bash /home/ubuntu/start.sh
+                                EOF
 
 #autoscaling_group
 max_size                         = 1

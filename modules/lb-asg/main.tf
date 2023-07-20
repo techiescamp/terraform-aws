@@ -139,11 +139,7 @@ resource "aws_launch_template" "application_lt" {
     security_groups             = [aws_security_group.instance_sg.id]
   }
 
-  user_data = base64encode(<<-EOF
-  #!/bin/bash
-  bash /home/ubuntu/start.sh
-  EOF
-  )
+  user_data = base64encode(var.user_data)
 
 }
 

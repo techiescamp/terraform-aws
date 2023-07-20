@@ -170,6 +170,11 @@ variable "public_access" {
   type        = bool
 }
 
+variable "user_data" {
+  description = "user data script"
+  type        = string
+}
+
 variable "max_size" {
   description = "Maximum size of something"
   type        = number
