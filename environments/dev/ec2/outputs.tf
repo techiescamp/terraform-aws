@@ -12,3 +12,4 @@ output "instance_public_ip" {
   description = "The Public Ip address of the ec2 instance"
   value       = module.ec2.instance_public_ip
 }
+
