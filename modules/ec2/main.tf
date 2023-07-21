@@ -1,34 +1,21 @@
-resource "aws_security_group" "instance-sg" {
-  name        = "instance-sg"
-  description = "Security Group for Instance"
+resource "aws_instance" "ec2_instance" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+  key_name      = var.key_name
+  count         = var.instance_count
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-
-resource "aws_instance" "gitlab_instance" {
-  count = var.instance_count
-
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
-  key_name               = var.key_name
-  vpc_security_group_ids = [aws_security_group.instance-sg.id]
-
-  tags = {
-    Name = "${var.instance_name}-${count.index + 1}"
-  }
+  vpc_security_group_ids = var.security_group_ids
 
   subnet_id = element(var.subnet_ids, count.index % length(var.subnet_ids))
+
+  tags = merge(
+    {
+      Name        = "${var.environment[0]}-${var.application}"
+      Environment = var.environment[0]
+      Owner       = var.owner
+      CostCenter  = var.cost_center
+      Application = var.application
+    },
+    var.tags
+  )
 }
