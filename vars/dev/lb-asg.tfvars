@@ -43,6 +43,7 @@ instance_type                    = "t2.medium"
 key_name                         = "aswin-key"
 vpc_id                           = "vpc-0a5ca4a92c2e10163"
 subnets                          = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
+security_group_ids               = ["sg-056e31eec8fdb151f"]
 public_access                    = true
 
 #user_data
@@ -55,6 +56,7 @@ user_data                        = <<-EOF
 max_size                         = 1
 min_size                         = 1
 desired_capacity                 = 1
+propagate_at_launch              = true
 
 #tags
 owner                            = "techiescamp-devops"
