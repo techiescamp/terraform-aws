@@ -165,6 +165,11 @@ variable "subnets" {
   type        = list(string)
 }
 
+variable "security_group_ids" {
+  type        = list(string)
+  description = "Security group id of the ec2 instance"
+}
+
 variable "public_access" {
   description = "Whether the instance is public or not"
   type        = bool
@@ -188,6 +193,11 @@ variable "min_size" {
 variable "desired_capacity" {
   description = "Desired capacity of something"
   type        = number
+}
+
+variable "propagate_at_launch" {
+  description = "To enable ot disable propagate_at_launch"
+  type        = bool
 }
 
 variable "owner" {

@@ -161,8 +161,28 @@ resource "aws_autoscaling_group" "application_asg" {
 
   tag {
     key                 = "Name"
-    value               = "petclinic"
-    propagate_at_launch = true
+    value               = "${var.environment}-${var.application}-asg"
+    propagate_at_launch = var.propagate_at_launch
+  }
+  tag {
+    key                 = "Owner"
+    value               = var.owner
+    propagate_at_launch = var.propagate_at_launch
+  }
+  tag {
+    key                 = "Environment"
+    value               = var.environment
+    propagate_at_launch = var.propagate_at_launch
+  }
+  tag {
+    key                 = "CostCenter"
+    value               = var.cost_center
+    propagate_at_launch = var.propagate_at_launch
+  }
+  tag {
+    key                 = "Application"
+    value               = var.application
+    propagate_at_launch = var.propagate_at_launch
   }
 
 }
