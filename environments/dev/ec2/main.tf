@@ -16,21 +16,26 @@ module "ec2" {
   owner              = var.owner
   cost_center        = var.cost_center
   application        = var.application
-  security_group_ids = module.ec2-sg.security_group_ids
+  security_group_ids = module.security-group.security_group_ids
 }
 
-module "ec2-sg" {
-  source      = "../../../modules/ec2-sg"
-  region      = var.region
-  tags        = var.tags
-  name        = var.name
-  environment = var.environment
-  owner       = var.owner
-  cost_center = var.cost_center
-  application = var.application
-  sg_name     = var.sg_name
-  from_port   = var.from_port
-  to_port     = var.to_port
-  protocol    = var.protocol
-  cidr_block  = var.cidr_block
+module "security-group" {
+  source             = "../../../modules/security-group"
+  region             = var.region
+  tags               = var.tags
+  name               = var.name
+  environment        = var.environment
+  owner              = var.owner
+  cost_center        = var.cost_center
+  application        = var.application
+  sg_name            = var.sg_name
+  vpc_id             = var.vpc_id
+  ingress_from_port  = var.ingress_from_port
+  ingress_to_port    = var.ingress_to_port
+  ingress_protocol   = var.ingress_protocol
+  ingress_cidr_block = var.ingress_cidr_block
+  egress_from_port   = var.egress_from_port
+  egress_to_port     = var.egress_to_port
+  egress_protocol    = var.egress_protocol
+  egress_cidr_block  = var.egress_cidr_block
 }
