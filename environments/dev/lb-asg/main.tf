@@ -36,11 +36,13 @@ module "lb-asg" {
   key_name                        = var.key_name
   vpc_id                          = var.vpc_id
   subnets                         = var.subnets
+  security_group_ids              = var.security_group_ids
   public_access                   = var.public_access
   user_data                       = var.user_data
   max_size                        = var.max_size
   min_size                        = var.min_size
   desired_capacity                = var.desired_capacity
+  propagate_at_launch             = var.propagate_at_launch
   owner                           = var.owner
   environment                     = var.environment
   cost_center                     = var.cost_center
