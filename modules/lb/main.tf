@@ -1,38 +1,10 @@
-resource "aws_security_group" "lb_sg" {
-  name_prefix = "${var.environment}-${var.application}-lb-sg"
-
-  ingress {
-    from_port   = var.lb_from_port
-    to_port     = var.lb_to_port
-    protocol    = var.lb_protocol
-    cidr_blocks = var.lb_cidr_block
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = merge(
-    {
-      Name        = "${var.environment}-${var.application}-lb-sg",
-      Environment = var.environment,
-      OwnerName   = var.owner,
-      Cost_Center = var.cost_center,
-      AppName     = var.application
-    },
-    var.tags
-  )
-}
 resource "aws_lb" "load_balancer" {
   name               = "${var.environment}-${var.application}-lb"
   internal           = var.internal
   load_balancer_type = var.lb_type
 
   subnets         = var.subnets
-  security_groups = [aws_security_group.lb_sg.id]
+  security_groups = var.security_group_ids
 
   tags = merge(
     {

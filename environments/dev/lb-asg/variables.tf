@@ -19,26 +19,6 @@ variable "instance_role" {
   type        = string
 }
 
-variable "lb_from_port" {
-  description = "Load balancer from port"
-  type        = number
-}
-
-variable "lb_to_port" {
-  description = "Load balancer to port"
-  type        = number
-}
-
-variable "lb_protocol" {
-  description = "Load balancer protocol"
-  type        = string
-}
-
-variable "lb_cidr_block" {
-  description = "Load balancer CIDR block"
-  type        = list(string)
-}
-
 variable "internal" {
   description = "Whether the load balancer is internal or not"
   type        = bool
@@ -47,26 +27,6 @@ variable "internal" {
 variable "lb_type" {
   description = "Load balancer type"
   type        = string
-}
-
-variable "instance_from_port" {
-  description = "Instance from port"
-  type        = number
-}
-
-variable "instance_to_port" {
-  description = "Instance to port"
-  type        = number
-}
-
-variable "instance_protocol" {
-  description = "Instance protocol"
-  type        = string
-}
-
-variable "instance_cidr_block" {
-  description = "Instance CIDR block"
-  type        = list(string)
 }
 
 variable "target_group_port" {
@@ -200,6 +160,11 @@ variable "propagate_at_launch" {
   type        = bool
 }
 
+variable "name" {
+  type        = string
+  description = "The name of the resources"
+}
+
 variable "owner" {
   type        = string
   description = "Name of owner"
@@ -218,4 +183,49 @@ variable "cost_center" {
 variable "application" {
   type        = string
   description = "Name of the application"
+}
+
+variable "sg_name" {
+  type        = string
+  description = "Security group name for the instance"
+}
+
+variable "ingress_cidr_block" {
+  type        = list(string)
+  description = "CIDR blocks for EC2 security group ingress rules"
+}
+
+variable "ingress_from_port" {
+  description = "The starting port for ingress rules"
+  type        = list(number)
+}
+
+variable "ingress_to_port" {
+  description = "The ending port for ingress rules"
+  type        = list(number)
+}
+
+variable "ingress_protocol" {
+  description = "The protocol for ingress rules"
+  type        = list(any)
+}
+
+variable "egress_cidr_block" {
+  type        = list(string)
+  description = "CIDR blocks for EC2 security group egress rules"
+}
+
+variable "egress_from_port" {
+  description = "The starting port for egress rules"
+  type        = list(number)
+}
+
+variable "egress_to_port" {
+  description = "The ending port for egress rules"
+  type        = list(number)
+}
+
+variable "egress_protocol" {
+  description = "The protocol for egress rules"
+  type        = list(any)
 }

@@ -14,26 +14,6 @@ variable "instance_role" {
   type        = string
 }
 
-variable "instance_from_port" {
-  description = "Instance from port"
-  type        = number
-}
-
-variable "instance_to_port" {
-  description = "Instance to port"
-  type        = number
-}
-
-variable "instance_protocol" {
-  description = "Instance protocol"
-  type        = string
-}
-
-variable "instance_cidr_block" {
-  description = "Instance CIDR block"
-  type        = list(string)
-}
-
 variable "ami_id" {
   type        = string
   description = "The ID of the Amazon Machine Image (AMI) to use for the EC2 instances."

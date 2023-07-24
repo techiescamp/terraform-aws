@@ -9,26 +9,6 @@ variable "region" {
   description = "Region of the lb-asg"
 }
 
-variable "lb_from_port" {
-  description = "Load balancer from port"
-  type        = number
-}
-
-variable "lb_to_port" {
-  description = "Load balancer to port"
-  type        = number
-}
-
-variable "lb_protocol" {
-  description = "Load balancer protocol"
-  type        = string
-}
-
-variable "lb_cidr_block" {
-  description = "Load balancer CIDR block"
-  type        = list(string)
-}
-
 variable "internal" {
   description = "Whether the load balancer is internal or not"
   type        = bool
@@ -37,6 +17,11 @@ variable "internal" {
 variable "lb_type" {
   description = "Load balancer type"
   type        = string
+}
+
+variable "security_group_ids" {
+  type        = list(string)
+  description = "Security group id of the ec2 instance"
 }
 
 variable "vpc_id" {

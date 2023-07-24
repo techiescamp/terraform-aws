@@ -4,35 +4,6 @@ resource "aws_iam_instance_profile" "instance_profile" {
   role = var.iam_role
 }
 
-resource "aws_security_group" "instance_sg" {
-  name_prefix = "${var.environment}-${var.application}-instance_sg"
-
-  ingress {
-    from_port   = var.instance_from_port
-    to_port     = var.instance_to_port
-    protocol    = var.instance_protocol
-    cidr_blocks = var.instance_cidr_block
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = merge(
-    {
-      Name        = "${var.environment}-${var.application}-instance-sg"
-      Environment = var.environment,
-      OwnerName   = var.owner,
-      Cost_Center = var.cost_center,
-      AppName     = var.application
-    },
-    var.tags
-  )
-}
-
 resource "aws_launch_template" "application_lt" {
   name_prefix   = "${var.environment}-${var.application}-launch_template"
   image_id      = var.ami_id
@@ -45,7 +16,7 @@ resource "aws_launch_template" "application_lt" {
 
   network_interfaces {
     associate_public_ip_address = var.public_access
-    security_groups             = [aws_security_group.instance_sg.id]
+    security_groups             = var.security_group_ids
   }
 
   user_data = base64encode(var.user_data)
