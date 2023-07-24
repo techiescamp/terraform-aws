@@ -65,6 +65,44 @@ terraform destroy -var-file=../../../vars/dev/ec2.tfvars
 
 **Note**: Always review the execution plan (`terraform plan`) before applying changes to avoid unintended modifications.
 
+## Terraform AWS Organization Tag Policy Implement.
+
+1. Navigate to the `environment/dev` folder:
+
+```bash
+cd environment/tag-policy
+```
+
+2. Open the `tag-policy.tfvars` file and modify it with your desired details. This file contains variables used in the Terraform configuration.
+
+## Deployment
+
+1. Initialize Terraform in the working directory:
+
+```bash
+terraform init
+```
+
+2. Create an execution plan:
+
+```bash
+terraform plan -var-file=../../../vars/dev/tag-policy.tfvars
+```
+
+3. Apply the changes to create the Tag Policy:
+
+```bash
+terraform apply -var-file=../../../vars/dev/tag-policy.tfvars
+```
+
+4. To destroy the Tag Policy:
+
+```bash
+terraform destroy -var-file=../../../vars/dev/tag-policy.tfvars
+```
+
+**Note**: Always review the execution plan (`terraform plan`) before applying changes to avoid unintended modifications.
+
 ## Command Reference
 
 Update all outputs:
