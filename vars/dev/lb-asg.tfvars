@@ -1,6 +1,6 @@
 # iam_role
 instance_profile               = "FullAccessProfile"
-instance_role                  = "instance_role"
+instance_role                  = "demo_role"
 
 # lb_sg
 lb_from_port                   = 0

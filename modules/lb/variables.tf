@@ -9,16 +9,6 @@ variable "region" {
   description = "Region of the lb-asg"
 }
 
-variable "instance_profile" {
-  description = "Instance profile for the instance which the instance role is associated with"
-  type        = string
-}
-
-variable "instance_role" {
-  description = "Instance role for the instance"
-  type        = string
-}
-
 variable "lb_from_port" {
   description = "Load balancer from port"
   type        = number
@@ -49,23 +39,13 @@ variable "lb_type" {
   type        = string
 }
 
-variable "instance_from_port" {
-  description = "Instance from port"
-  type        = number
-}
-
-variable "instance_to_port" {
-  description = "Instance to port"
-  type        = number
-}
-
-variable "instance_protocol" {
-  description = "Instance protocol"
+variable "vpc_id" {
   type        = string
+  description = "The ID of the VPC to use for the resources."
 }
 
-variable "instance_cidr_block" {
-  description = "Instance CIDR block"
+variable "subnets" {
+  description = "A list of subnet IDs to use for the resources."
   type        = list(string)
 }
 
@@ -137,67 +117,6 @@ variable "listener_protocol" {
 variable "listener_type" {
   description = "Listener type"
   type        = string
-}
-
-
-variable "ami_id" {
-  type        = string
-  description = "The ID of the Amazon Machine Image (AMI) to use for the EC2 instances."
-}
-
-variable "instance_type" {
-  type        = string
-  description = "The type of EC2 instance to use for the ASG."
-}
-
-variable "key_name" {
-  type        = string
-  description = "The name of the EC2 key pair to use for the instances."
-}
-
-variable "vpc_id" {
-  type        = string
-  description = "The ID of the VPC to use for the resources."
-}
-
-variable "subnets" {
-  description = "A list of subnet IDs to use for the resources."
-  type        = list(string)
-}
-
-variable "security_group_ids" {
-  type        = list(string)
-  description = "Security group id of the ec2 instance"
-}
-
-variable "public_access" {
-  description = "Whether the instance is public or not"
-  type        = bool
-}
-
-variable "user_data" {
-  description = "user data script"
-  type        = string
-}
-
-variable "max_size" {
-  description = "Maximum size of something"
-  type        = number
-}
-
-variable "min_size" {
-  description = "Minimum size of something"
-  type        = number
-}
-
-variable "desired_capacity" {
-  description = "Desired capacity of something"
-  type        = number
-}
-
-variable "propagate_at_launch" {
-  description = "To enable ot disable propagate_at_launch"
-  type        = bool
 }
 
 variable "owner" {

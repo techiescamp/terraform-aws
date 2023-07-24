@@ -2,21 +2,22 @@ provider "aws" {
   region = var.region
 }
 
-module "lb-asg" {
-  source                          = "../../../modules/lb-asg"
-  region                          = var.region
-  instance_profile                = var.instance_profile
+module "iam-policy" {
+  source                          = "../../../modules/iam-policy"
   instance_role                   = var.instance_role
+}
+
+module "lb" {
+  source                          = "../../../modules/lb"
+  region                          = var.region
   lb_from_port                    = var.lb_from_port
   lb_to_port                      = var.lb_to_port
   lb_protocol                     = var.lb_protocol
   lb_cidr_block                   = var.lb_cidr_block
   internal                        = var.internal
   lb_type                         = var.lb_type
-  instance_from_port              = var.instance_from_port
-  instance_to_port                = var.instance_to_port
-  instance_protocol               = var.instance_protocol
-  instance_cidr_block             = var.instance_cidr_block
+  vpc_id                          = var.vpc_id
+  subnets                         = var.subnets
   target_group_port               = var.target_group_port
   target_group_protocol           = var.target_group_protocol
   target_type                     = var.target_type
@@ -31,6 +32,20 @@ module "lb-asg" {
   listener_port                   = var.listener_port
   listener_protocol               = var.listener_protocol
   listener_type                   = var.listener_type
+  owner                           = var.owner
+  environment                     = var.environment
+  cost_center                     = var.cost_center
+  application                     = var.application
+}
+
+module "asg" {
+  source                          = "../../../modules/asg"
+  instance_profile                = var.instance_profile
+  instance_role                   = var.instance_role
+  instance_from_port              = var.instance_from_port
+  instance_to_port                = var.instance_to_port
+  instance_protocol               = var.instance_protocol
+  instance_cidr_block             = var.instance_cidr_block
   ami_id                          = var.ami_id
   instance_type                   = var.instance_type
   key_name                        = var.key_name
@@ -47,4 +62,6 @@ module "lb-asg" {
   environment                     = var.environment
   cost_center                     = var.cost_center
   application                     = var.application
+  lb_target_group_arn             = module.lb.lb_target_group_arn
+  iam_role                        = module.iam-policy.iam_role
 }
