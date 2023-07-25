@@ -1,24 +1,32 @@
 # terraform-aws
-Terraform AWS Cloud examples for beginners
+Terraform AWS provisioning examples for beginners
+
+## Hit the Star! ⭐
+If you are planning to use this Terraform repo for learning, please hit the star. Thanks!
 
 ## Terraform Init With s3 Backend
 
+```
 terraform init \
     -backend-config="key=dev/vpc.tfstate" \
     -backend-config="bucket=dcube-terraform-state" \
     -backend-config="region=us-west-2" \
     -backend-config="dynamodb_table=terraform-state-lock"
+```
+```
 
 terraform destroy \
     -backend-config="key=dev/vpc.tfstate" \
     -backend-config="bucket=dcube-terraform-state" \
     -backend-config="region=us-west-2" \
     -backend-config="dynamodb_table=terraform-state-lock"
+```
 
-## RDS DB
+## RDS Provisioning
 
-cd into environments/dev/rds directory and run the following commands:
+cd into the `environments/dev/rds` directory and run the following commands:
 
+```
 terraform init
 
 terraform plan -var-file=../../../vars/dev/rds.tfvars
@@ -26,8 +34,9 @@ terraform plan -var-file=../../../vars/dev/rds.tfvars
 terraform apply -var-file=../../../vars/dev/rds.tfvars
 
 terraform destroy -var-file=../../../vars/dev/rds.tfvars
+```
 
-## Terraform EC2 Instance Deployment
+## EC2 Instance Provisioning
 
 1. Navigate to the `environment/dev` folder:
 
@@ -37,7 +46,7 @@ cd environment/dev
 
 2. Open the `ec2.tfvars` file and modify it with your desired details. This file contains variables used in the Terraform configuration.
 
-## Deployment
+### Deployment
 
 1. Initialize Terraform in the working directory:
 
@@ -65,7 +74,7 @@ terraform destroy -var-file=../../../vars/dev/ec2.tfvars
 
 **Note**: Always review the execution plan (`terraform plan`) before applying changes to avoid unintended modifications.
 
-## Terraform AWS Organization Tag Policy Implement.
+## AWS Organization Tag Policy Creation.
 
 1. Navigate to the `environment/dev` folder:
 
@@ -75,7 +84,7 @@ cd environment/tag-policy
 
 2. Open the `tag-policy.tfvars` file and modify it with your desired details. This file contains variables used in the Terraform configuration.
 
-## Deployment
+### Deployment
 
 1. Initialize Terraform in the working directory:
 
@@ -103,7 +112,7 @@ terraform destroy -var-file=../../../vars/dev/tag-policy.tfvars
 
 **Note**: Always review the execution plan (`terraform plan`) before applying changes to avoid unintended modifications.
 
-## Command Reference
+## Terraform Command Reference
 
 Update all outputs:
 
