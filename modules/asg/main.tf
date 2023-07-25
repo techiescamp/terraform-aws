@@ -29,41 +29,28 @@ resource "aws_autoscaling_group" "application_asg" {
   min_size            = var.min_size
   desired_capacity    = var.desired_capacity
   vpc_zone_identifier = var.subnets
-  
+
   launch_template {
     id      = aws_launch_template.application_lt.id
     version = aws_launch_template.application_lt.latest_version
   }
 
   lifecycle {
-    ignore_changes        = [load_balancers, target_group_arns]
+    ignore_changes = [load_balancers, target_group_arns]
   }
 
-  tag {
-    key                 = "Name"
-    value               = "${var.environment}-${var.application}-asg"
-    propagate_at_launch = var.propagate_at_launch
+  dynamic "tags" {
+    for_each = toset(range(length(var.tags)))
+    content {
+      Name        = "${var.environment}-${var.application}-asg"
+      Environment = var.environment
+      Owner       = var.owner
+      CostCenter  = var.cost_center
+      Application = var.application
+      propagate_at_launch = true
+    }
   }
-  tag {
-    key                 = "Owner"
-    value               = var.owner
-    propagate_at_launch = var.propagate_at_launch
-  }
-  tag {
-    key                 = "Environment"
-    value               = var.environment
-    propagate_at_launch = var.propagate_at_launch
-  }
-  tag {
-    key                 = "CostCenter"
-    value               = var.cost_center
-    propagate_at_launch = var.propagate_at_launch
-  }
-  tag {
-    key                 = "Application"
-    value               = var.application
-    propagate_at_launch = var.propagate_at_launch
-  }
+
 }
 
 resource "aws_autoscaling_attachment" "application_asg_attachment" {

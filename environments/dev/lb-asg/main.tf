@@ -56,26 +56,26 @@ module "asg" {
   application                     = var.application
   lb_target_group_arn             = module.lb.lb_target_group_arn
   iam_role                        = module.iam-policy.iam_role
-  security_group_ids             = module.security-group.security_group_ids
+  security_group_ids              = module.security-group.security_group_ids
 }
 
 module "security-group" {
-  source             = "../../../modules/security-group"
-  region             = var.region
-  tags               = var.tags
-  name               = var.name
-  environment        = var.environment
-  owner              = var.owner
-  cost_center        = var.cost_center
-  application        = var.application
-  sg_name            = var.sg_name
-  vpc_id             = var.vpc_id
-  ingress_from_port  = var.ingress_from_port
-  ingress_to_port    = var.ingress_to_port
-  ingress_protocol   = var.ingress_protocol
-  ingress_cidr_block = var.ingress_cidr_block
-  egress_from_port   = var.egress_from_port
-  egress_to_port     = var.egress_to_port
-  egress_protocol    = var.egress_protocol
-  egress_cidr_block  = var.egress_cidr_block
+  source                          = "../../../modules/security-group"
+  region                          = var.region
+  tags                            = var.tags
+  name                            = var.name
+  environment                     = var.environment
+  owner                           = var.owner
+  cost_center                     = var.cost_center
+  application                     = var.application
+  sg_name                         = var.sg_name
+  vpc_id                          = var.vpc_id
+  ingress_from_port               = var.ingress_from_port
+  ingress_to_port                 = var.ingress_to_port
+  ingress_protocol                = var.ingress_protocol
+  ingress_cidr_block              = var.ingress_cidr_block
+  egress_from_port                = var.egress_from_port
+  egress_to_port                  = var.egress_to_port
+  egress_protocol                 = var.egress_protocol
+  egress_cidr_block               = var.egress_cidr_block
 }

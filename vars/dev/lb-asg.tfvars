@@ -7,15 +7,15 @@ internal                       = false
 lb_type                        = "application"
 
 # security group
-sg_name             = "app_sg"
-ingress_from_port   = [22, 8080]
-ingress_to_port     = [22, 8080]
-ingress_protocol    = ["tcp", "tcp"]
-ingress_cidr_block  = ["0.0.0.0/0"]
-egress_from_port    = [0]
-egress_to_port      = [0]
-egress_protocol     = ["-1"]
-egress_cidr_block   = ["0.0.0.0/0"]
+sg_name                        = "app_sg"
+ingress_from_port              = [22, 8080]
+ingress_to_port                = [22, 8080]
+ingress_protocol               = ["tcp", "tcp"]
+ingress_cidr_block             = ["0.0.0.0/0"]
+egress_from_port               = [0]
+egress_to_port                 = [0]
+egress_protocol                = ["-1"]
+egress_cidr_block              = ["0.0.0.0/0"]
 
 # target_group
 target_group_port              = 8080
