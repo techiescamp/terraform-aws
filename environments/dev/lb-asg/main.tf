@@ -58,8 +58,10 @@ module "asg" {
   iam_role                        = module.iam-policy.iam_role
   security_group_ids              = module.security-group.security_group_ids
   tags = {
-    Environment = "${var.environment}"
-    Project     = "megasecret"
+    Owner                         = "${var.owner}"
+    Environment                   = "${var.environment}"
+    Cost_center                   = "${var.cost_center}"
+    Application                   = "${var.application}"
   }
 }
 

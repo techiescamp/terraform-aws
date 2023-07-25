@@ -1,6 +1,6 @@
 # iam_role
 instance_profile               = "FullAccessProfile"
-instance_role                  = "demo_role"
+instance_role                  = "access_role"
 
 # lb
 internal                       = false
@@ -61,7 +61,7 @@ propagate_at_launch              = true
 
 #tags
 name                             = "lb-asg"
-owner                            = "techiescamp-devops"
+owner                            = "Techiescamp"
 environment                      = "dev"
-cost_center                      = "techiescamp"
-application                      = "techiescamp-commerce"
+cost_center                      = "project-pet-clinic"
+application                      = "web-app"
