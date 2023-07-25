@@ -1,20 +1,21 @@
 # iam_role
 instance_profile               = "FullAccessProfile"
-instance_role                  = "instance_role"
+instance_role                  = "demo_role"
 
-# lb_sg
-lb_from_port                   = 0
-lb_to_port                     = 65535
-lb_protocol                    = "tcp"
-lb_cidr_block                  = ["0.0.0.0/0"]
+# lb
 internal                       = false
 lb_type                        = "application"
 
-# insatnce_sg
-instance_from_port             = 0
-instance_to_port               = 65535
-instance_protocol              = "tcp"
-instance_cidr_block            = ["0.0.0.0/0"]
+# security group
+sg_name                        = "app_sg"
+ingress_from_port              = [22, 8080]
+ingress_to_port                = [22, 8080]
+ingress_protocol               = ["tcp", "tcp"]
+ingress_cidr_block             = ["0.0.0.0/0"]
+egress_from_port               = [0]
+egress_to_port                 = [0]
+egress_protocol                = ["-1"]
+egress_cidr_block              = ["0.0.0.0/0"]
 
 # target_group
 target_group_port              = 8080
@@ -59,6 +60,7 @@ desired_capacity                 = 1
 propagate_at_launch              = true
 
 #tags
+name                             = "lb-asg"
 owner                            = "techiescamp-devops"
 environment                      = "dev"
 cost_center                      = "techiescamp"

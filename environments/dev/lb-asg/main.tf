@@ -2,21 +2,18 @@ provider "aws" {
   region = var.region
 }
 
-module "lb-asg" {
-  source                          = "../../../modules/lb-asg"
-  region                          = var.region
-  instance_profile                = var.instance_profile
+module "iam-policy" {
+  source                          = "../../../modules/iam-policy"
   instance_role                   = var.instance_role
-  lb_from_port                    = var.lb_from_port
-  lb_to_port                      = var.lb_to_port
-  lb_protocol                     = var.lb_protocol
-  lb_cidr_block                   = var.lb_cidr_block
+}
+
+module "lb" {
+  source                          = "../../../modules/lb"
+  region                          = var.region
   internal                        = var.internal
   lb_type                         = var.lb_type
-  instance_from_port              = var.instance_from_port
-  instance_to_port                = var.instance_to_port
-  instance_protocol               = var.instance_protocol
-  instance_cidr_block             = var.instance_cidr_block
+  vpc_id                          = var.vpc_id
+  subnets                         = var.subnets
   target_group_port               = var.target_group_port
   target_group_protocol           = var.target_group_protocol
   target_type                     = var.target_type
@@ -31,12 +28,22 @@ module "lb-asg" {
   listener_port                   = var.listener_port
   listener_protocol               = var.listener_protocol
   listener_type                   = var.listener_type
+  owner                           = var.owner
+  environment                     = var.environment
+  cost_center                     = var.cost_center
+  application                     = var.application
+  security_group_ids              = module.security-group.security_group_ids
+}
+
+module "asg" {
+  source                          = "../../../modules/asg"
+  instance_profile                = var.instance_profile
+  instance_role                   = var.instance_role
   ami_id                          = var.ami_id
   instance_type                   = var.instance_type
   key_name                        = var.key_name
   vpc_id                          = var.vpc_id
   subnets                         = var.subnets
-  security_group_ids              = var.security_group_ids
   public_access                   = var.public_access
   user_data                       = var.user_data
   max_size                        = var.max_size
@@ -47,4 +54,28 @@ module "lb-asg" {
   environment                     = var.environment
   cost_center                     = var.cost_center
   application                     = var.application
+  lb_target_group_arn             = module.lb.lb_target_group_arn
+  iam_role                        = module.iam-policy.iam_role
+  security_group_ids              = module.security-group.security_group_ids
+}
+
+module "security-group" {
+  source                          = "../../../modules/security-group"
+  region                          = var.region
+  tags                            = var.tags
+  name                            = var.name
+  environment                     = var.environment
+  owner                           = var.owner
+  cost_center                     = var.cost_center
+  application                     = var.application
+  sg_name                         = var.sg_name
+  vpc_id                          = var.vpc_id
+  ingress_from_port               = var.ingress_from_port
+  ingress_to_port                 = var.ingress_to_port
+  ingress_protocol                = var.ingress_protocol
+  ingress_cidr_block              = var.ingress_cidr_block
+  egress_from_port                = var.egress_from_port
+  egress_to_port                  = var.egress_to_port
+  egress_protocol                 = var.egress_protocol
+  egress_cidr_block               = var.egress_cidr_block
 }
