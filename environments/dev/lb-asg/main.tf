@@ -57,6 +57,10 @@ module "asg" {
   lb_target_group_arn             = module.lb.lb_target_group_arn
   iam_role                        = module.iam-policy.iam_role
   security_group_ids              = module.security-group.security_group_ids
+  tags = {
+    Environment = "${var.environment}"
+    Project     = "megasecret"
+  }
 }
 
 module "security-group" {

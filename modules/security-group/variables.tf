@@ -65,7 +65,7 @@ variable "name" {
 }
 
 variable "environment" {
-  type        = list(string)
+  type        = string
   description = "The environment name for the resources."
 }
 

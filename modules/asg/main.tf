@@ -1,3 +1,10 @@
+locals {
+  asg_tags = merge(
+    var.tags,
+    { "Name" = "${var.environment}-${var.application}-asg"  }
+  )
+}
+
 resource "aws_iam_instance_profile" "instance_profile" {
   name = var.instance_profile
 
@@ -39,17 +46,15 @@ resource "aws_autoscaling_group" "application_asg" {
     ignore_changes = [load_balancers, target_group_arns]
   }
 
-  dynamic "tags" {
-    for_each = toset(range(length(var.tags)))
+  dynamic "tag" {
+    for_each = local.asg_tags
     content {
-      Name        = "${var.environment}-${var.application}-asg"
-      Environment = var.environment
-      Owner       = var.owner
-      CostCenter  = var.cost_center
-      Application = var.application
+      key                 = tag.key
+      value               = tag.value
       propagate_at_launch = true
     }
   }
+
 
 }
 
