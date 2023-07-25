@@ -32,7 +32,7 @@ module "lb" {
   environment                     = var.environment
   cost_center                     = var.cost_center
   application                     = var.application
-  security_group_ids              = module.security-group.security_group_ids
+  security_group_ids              = module.lb-sg.security_group_ids
 }
 
 module "asg" {
@@ -56,7 +56,7 @@ module "asg" {
   application                     = var.application
   lb_target_group_arn             = module.lb.lb_target_group_arn
   iam_role                        = module.iam-policy.iam_role
-  security_group_ids              = module.security-group.security_group_ids
+  security_group_ids              = module.instance-sg.security_group_ids
   tags = {
     Owner                         = "${var.owner}"
     Environment                   = "${var.environment}"
@@ -65,7 +65,28 @@ module "asg" {
   }
 }
 
-module "security-group" {
+module "lb-sg" {
+  source                          = "../../../modules/security-group"
+  region                          = var.region
+  tags                            = var.tags
+  name                            = var.name
+  environment                     = var.environment
+  owner                           = var.owner
+  cost_center                     = var.cost_center
+  application                     = var.application
+  sg_name                         = var.lb_sg_name
+  vpc_id                          = var.vpc_id
+  ingress_from_port               = var.lb_ingress_from_port
+  ingress_to_port                 = var.lb_ingress_to_port
+  ingress_protocol                = var.lb_ingress_protocol
+  ingress_cidr_block              = var.lb_ingress_cidr_block
+  egress_from_port                = var.lb_egress_from_port
+  egress_to_port                  = var.lb_egress_to_port
+  egress_protocol                 = var.lb_egress_protocol
+  egress_cidr_block               = var.lb_egress_cidr_block
+}
+
+module "instance-sg" {
   source                          = "../../../modules/security-group"
   region                          = var.region
   tags                            = var.tags

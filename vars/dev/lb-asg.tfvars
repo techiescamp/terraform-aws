@@ -6,11 +6,22 @@ instance_role                  = "access_role"
 internal                       = false
 lb_type                        = "application"
 
-# security group
-sg_name                        = "app_sg"
-ingress_from_port              = [22, 8080]
-ingress_to_port                = [22, 8080]
-ingress_protocol               = ["tcp", "tcp"]
+#lb-sg
+lb_sg_name                        = "lb_sg"
+lb_ingress_from_port              = [80, 8080]
+lb_ingress_to_port                = [80, 8080]
+lb_ingress_protocol               = ["tcp", "tcp"]
+lb_ingress_cidr_block             = ["0.0.0.0/0"]
+lb_egress_from_port               = [0]
+lb_egress_to_port                 = [0]
+lb_egress_protocol                = ["-1"]
+lb_egress_cidr_block              = ["0.0.0.0/0"]
+
+# instance sg
+sg_name                        = "instance_sg"
+ingress_from_port              = [8080]
+ingress_to_port                = [8080]
+ingress_protocol               = ["tcp"]
 ingress_cidr_block             = ["0.0.0.0/0"]
 egress_from_port               = [0]
 egress_to_port                 = [0]
