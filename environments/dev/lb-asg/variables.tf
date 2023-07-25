@@ -229,3 +229,49 @@ variable "egress_protocol" {
   description = "The protocol for egress rules"
   type        = list(any)
 }
+
+#####
+variable "lb_sg_name" {
+  type        = string
+  description = "Security group name for the instance"
+}
+
+variable "lb_ingress_cidr_block" {
+  type        = list(string)
+  description = "CIDR blocks for EC2 security group ingress rules"
+}
+
+variable "lb_ingress_from_port" {
+  description = "The starting port for ingress rules"
+  type        = list(number)
+}
+
+variable "lb_ingress_to_port" {
+  description = "The ending port for ingress rules"
+  type        = list(number)
+}
+
+variable "lb_ingress_protocol" {
+  description = "The protocol for ingress rules"
+  type        = list(any)
+}
+
+variable "lb_egress_cidr_block" {
+  type        = list(string)
+  description = "CIDR blocks for EC2 security group egress rules"
+}
+
+variable "lb_egress_from_port" {
+  description = "The starting port for egress rules"
+  type        = list(number)
+}
+
+variable "lb_egress_to_port" {
+  description = "The ending port for egress rules"
+  type        = list(number)
+}
+
+variable "lb_egress_protocol" {
+  description = "The protocol for egress rules"
+  type        = list(any)
+}

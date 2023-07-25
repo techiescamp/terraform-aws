@@ -16,7 +16,7 @@ resource "aws_iam_role" "iam_role" {
 
 resource "aws_iam_policy" "iam_policy" {
   name = "iam_policy"
-  policy = file("${path.module}/policy.json")
+  policy = file("${path.module}../../../environments/dev/file/lb-asg.json")
 }
 
 resource "aws_iam_role_policy_attachment" "iam_role_policy_attachment" {
