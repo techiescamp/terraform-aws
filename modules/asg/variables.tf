@@ -1,7 +1,7 @@
 variable "tags" {
   default     = {}
   type        = map(string)
-  description = "Extra tags to attach to the lb-asg resources"
+  description = "Extra tags to attach to the alb-asg resources"
 }
 
 variable "instance_profile" {
@@ -86,7 +86,7 @@ variable "environment" {
 
 variable "cost_center" {
   type        = string
-  description = "Name of cost-center for this lb-asg"
+  description = "Name of cost-center for this alb-asg"
 }
 
 variable "application" {
@@ -94,7 +94,7 @@ variable "application" {
   description = "Name of the application"
 }
 
-variable "lb_target_group_arn" {
+variable "alb_target_group_arn" {
   description = "load balancer target group arn"
   type        = string
 }

@@ -1,7 +1,7 @@
-resource "aws_lb" "load_balancer" {
+resource "aws_lb" "application_load_balancer" {
   name               = "${var.environment}-${var.application}-lb"
   internal           = var.internal
-  load_balancer_type = var.lb_type
+  load_balancer_type = var.loadbalancer_type
 
   subnets         = var.subnets
   security_groups = var.security_group_ids
@@ -18,8 +18,8 @@ resource "aws_lb" "load_balancer" {
   )
 }
 
-resource "aws_lb_target_group" "lb_tg" {
-  name_prefix = "lb-tg"
+resource "aws_lb_target_group" "alb_tg" {
+  name_prefix = "alb-tg"
   port        = var.target_group_port
   protocol    = var.target_group_protocol
   vpc_id      = var.vpc_id
@@ -50,12 +50,12 @@ resource "aws_lb_target_group" "lb_tg" {
 }
 
 resource "aws_lb_listener" "application_listener" {
-  load_balancer_arn = aws_lb.load_balancer.arn
+  load_balancer_arn = aws_lb.application_load_balancer.arn
   port              = var.listener_port
   protocol          = var.listener_protocol
 
   default_action {
-    target_group_arn = aws_lb_target_group.lb_tg.arn
+    target_group_arn = aws_lb_target_group.alb_tg.arn
     type             = var.listener_type
   }
 }

@@ -2,23 +2,21 @@
 instance_profile               = "FullAccessProfile"
 instance_role                  = "access_role"
 
-# lb
+# alb
 internal                       = false
-lb_type                        = "application"
+loadbalancer_type              = "application"
 
-#lb-sg
-lb_sg_name                        = "lb_sg"
-lb_ingress_from_port              = [80, 8080]
-lb_ingress_to_port                = [80, 8080]
-lb_ingress_protocol               = ["tcp", "tcp"]
-lb_ingress_cidr_block             = ["0.0.0.0/0"]
-lb_egress_from_port               = [0]
-lb_egress_to_port                 = [0]
-lb_egress_protocol                = ["-1"]
-lb_egress_cidr_block              = ["0.0.0.0/0"]
+#alb-sg
+alb_ingress_from_port              = [80, 8080]
+alb_ingress_to_port                = [80, 8080]
+alb_ingress_protocol               = ["tcp", "tcp"]
+alb_ingress_cidr_block             = ["0.0.0.0/0"]
+alb_egress_from_port               = [0]
+alb_egress_to_port                 = [0]
+alb_egress_protocol                = ["-1"]
+alb_egress_cidr_block              = ["0.0.0.0/0"]
 
 # instance sg
-sg_name                        = "instance_sg"
 ingress_from_port              = [8080]
 ingress_to_port                = [8080]
 ingress_protocol               = ["tcp"]
@@ -43,7 +41,7 @@ health_check_timeout            = 5
 health_check_healthy_treshold   = 2
 health_check_unhealthy_treshold = 2
 
-#lb_listener
+#alb_listener
 listener_port                   = 80
 listener_protocol               = "HTTP"
 listener_type                   = "forward"
@@ -52,7 +50,7 @@ listener_type                   = "forward"
 region                           = "us-west-2"
 ami_id                           = "ami-020f3ca563c92097b"
 instance_type                    = "t2.medium"
-key_name                         = "aswin-key"
+key_name                         = "techiescamp"
 vpc_id                           = "vpc-0a5ca4a92c2e10163"
 subnets                          = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
 security_group_ids               = ["sg-056e31eec8fdb151f"]
@@ -62,7 +60,7 @@ public_access                    = true
 user_data                        = <<-EOF
                                     #!/bin/bash
                                     bash /home/ubuntu/start.sh
-                                EOF
+                                   EOF
 
 #autoscaling_group
 max_size                         = 1
@@ -71,8 +69,7 @@ desired_capacity                 = 1
 propagate_at_launch              = true
 
 #tags
-name                             = "lb-asg"
 owner                            = "Techiescamp"
 environment                      = "dev"
-cost_center                      = "project-pet-clinic"
-application                      = "web-app"
+cost_center                      = "techiescamp-commerce"
+application                      = "java-app"

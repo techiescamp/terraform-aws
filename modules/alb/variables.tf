@@ -1,12 +1,12 @@
 variable "tags" {
   default     = {}
   type        = map(string)
-  description = "Extra tags to attach to the lb-asg resources"
+  description = "Extra tags to attach to the alb-asg resources"
 }
 
 variable "region" {
   type        = string
-  description = "Region of the lb-asg"
+  description = "Region of the alb-asg"
 }
 
 variable "internal" {
@@ -14,7 +14,7 @@ variable "internal" {
   type        = bool
 }
 
-variable "lb_type" {
+variable "loadbalancer_type" {
   description = "Load balancer type"
   type        = string
 }
@@ -116,7 +116,7 @@ variable "environment" {
 
 variable "cost_center" {
   type        = string
-  description = "Name of cost-center for this lb-asg"
+  description = "Name of cost-center for this alb-asg"
 }
 
 variable "application" {

@@ -3,11 +3,6 @@ variable "region" {
   description = "Region of the security group."
 }
 
-variable "sg_name" {
-  type        = string
-  description = "Name of the security group for the instance."
-}
-
 variable "vpc_id" {
   type        = string
   description = "ID of the VPC associated with the security group."
@@ -57,11 +52,6 @@ variable "tags" {
   default     = {}
   type        = map(string)
   description = "Extra tags to attach to the EC2 security group resources."
-}
-
-variable "name" {
-  type        = string
-  description = "The name of the resources."
 }
 
 variable "environment" {
