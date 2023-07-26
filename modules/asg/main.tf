@@ -6,7 +6,7 @@ locals {
 }
 
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = var.instance_profile
+  name = "${var.environment}-${var.application}-instance_profile"
 
   role = var.iam_role
 }
@@ -18,7 +18,7 @@ resource "aws_launch_template" "application_lt" {
   key_name      = var.key_name
 
   iam_instance_profile {
-    name = var.instance_profile
+    name = "${var.environment}-${var.application}-instance_profile"
   }
 
   network_interfaces {
@@ -35,7 +35,7 @@ resource "aws_autoscaling_group" "application_asg" {
   max_size            = var.max_size
   min_size            = var.min_size
   desired_capacity    = var.desired_capacity
-  vpc_zone_identifier = var.subnets
+  vpc_zone_identifier = var.asg_subnets
 
   launch_template {
     id      = aws_launch_template.application_lt.id

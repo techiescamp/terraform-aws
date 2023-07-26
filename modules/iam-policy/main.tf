@@ -1,5 +1,5 @@
 resource "aws_iam_role" "iam_role" {
-  name = var.instance_role
+  name = "${var.environment}-${var.application}-iam-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -12,11 +12,21 @@ resource "aws_iam_role" "iam_role" {
       }
     ]
   })
+  tags = merge(
+    {
+      Name        = "${var.environment}-${var.application}-iam-role",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
+    },
+    var.tags
+  )
 }
 
 resource "aws_iam_policy" "iam_policy" {
-  name = "iam_policy"
-  policy = file("${path.module}../../../environments/dev/file/lb-asg.json")
+  name = "${var.environment}-${var.application}-iam-policy"
+  policy = file("${path.module}../../../environments/dev/iam-policies/alb-asg.json")
 }
 
 resource "aws_iam_role_policy_attachment" "iam_role_policy_attachment" {
