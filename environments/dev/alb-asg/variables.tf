@@ -9,16 +9,6 @@ variable "region" {
   description = "Region of the alb-asg"
 }
 
-variable "instance_profile" {
-  description = "Instance profile for the instance which the instance role is associated with"
-  type        = string
-}
-
-variable "instance_role" {
-  description = "Instance role for the instance"
-  type        = string
-}
-
 variable "internal" {
   description = "Whether the load balancer is internal or not"
   type        = bool
@@ -27,6 +17,11 @@ variable "internal" {
 variable "loadbalancer_type" {
   description = "Load balancer type"
   type        = string
+}
+
+variable "alb_subnets" {
+  description = "A list of subnet IDs to use for the resources."
+  type        = list(string)
 }
 
 variable "target_group_port" {
@@ -120,7 +115,7 @@ variable "vpc_id" {
   description = "The ID of the VPC to use for the resources."
 }
 
-variable "subnets" {
+variable "asg_subnets" {
   description = "A list of subnet IDs to use for the resources."
   type        = list(string)
 }
@@ -220,9 +215,6 @@ variable "egress_protocol" {
   description = "The protocol for egress rules"
   type        = list(any)
 }
-
-#####
-
 
 variable "alb_ingress_cidr_block" {
   type        = list(string)

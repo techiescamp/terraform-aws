@@ -1,20 +1,17 @@
-# iam_role
-instance_profile               = "FullAccessProfile"
-instance_role                  = "access_role"
-
 # alb
 internal                       = false
 loadbalancer_type              = "application"
+alb_subnets                    = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
 
 #alb-sg
-alb_ingress_from_port              = [80, 8080]
-alb_ingress_to_port                = [80, 8080]
-alb_ingress_protocol               = ["tcp", "tcp"]
-alb_ingress_cidr_block             = ["0.0.0.0/0"]
-alb_egress_from_port               = [0]
-alb_egress_to_port                 = [0]
-alb_egress_protocol                = ["-1"]
-alb_egress_cidr_block              = ["0.0.0.0/0"]
+alb_ingress_from_port          = [80, 8080]
+alb_ingress_to_port            = [80, 8080]
+alb_ingress_protocol           = ["tcp", "tcp"]
+alb_ingress_cidr_block         = ["0.0.0.0/0"]
+alb_egress_from_port           = [0]
+alb_egress_to_port             = [0]
+alb_egress_protocol            = ["-1"]
+alb_egress_cidr_block          = ["0.0.0.0/0"]
 
 # instance sg
 ingress_from_port              = [8080]
@@ -52,7 +49,7 @@ ami_id                           = "ami-020f3ca563c92097b"
 instance_type                    = "t2.medium"
 key_name                         = "techiescamp"
 vpc_id                           = "vpc-0a5ca4a92c2e10163"
-subnets                          = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
+asg_subnets                      = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
 security_group_ids               = ["sg-056e31eec8fdb151f"]
 public_access                    = true
 
@@ -69,7 +66,8 @@ desired_capacity                 = 1
 propagate_at_launch              = true
 
 #tags
-owner                            = "Techiescamp"
+owner                            = "techiescamp"
 environment                      = "dev"
 cost_center                      = "techiescamp-commerce"
 application                      = "java-app"
+

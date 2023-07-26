@@ -4,7 +4,10 @@ provider "aws" {
 
 module "iam-policy" {
   source                          = "../../../modules/iam-policy"
-  instance_role                   = var.instance_role
+  owner                           = var.owner
+  environment                     = var.environment
+  cost_center                     = var.cost_center
+  application                     = var.application
 }
 
 module "alb-sg" {
@@ -14,7 +17,7 @@ module "alb-sg" {
   environment                     = var.environment
   owner                           = var.owner
   cost_center                     = var.cost_center
-  application                     = var.application
+  application                     ="${var.application}-alb"
   vpc_id                          = var.vpc_id
   ingress_from_port               = var.alb_ingress_from_port
   ingress_to_port                 = var.alb_ingress_to_port
@@ -32,7 +35,7 @@ module "alb" {
   internal                        = var.internal
   loadbalancer_type               = var.loadbalancer_type
   vpc_id                          = var.vpc_id
-  subnets                         = var.subnets
+  alb_subnets                     = var.alb_subnets
   target_group_port               = var.target_group_port
   target_group_protocol           = var.target_group_protocol
   target_type                     = var.target_type
@@ -75,13 +78,11 @@ module "instance-sg" {
 
 module "asg" {
   source                          = "../../../modules/asg"
-  instance_profile                = var.instance_profile
-  instance_role                   = var.instance_role
   ami_id                          = var.ami_id
   instance_type                   = var.instance_type
   key_name                        = var.key_name
   vpc_id                          = var.vpc_id
-  subnets                         = var.subnets
+  asg_subnets                     = var.asg_subnets
   public_access                   = var.public_access
   user_data                       = var.user_data
   max_size                        = var.max_size
@@ -92,7 +93,7 @@ module "asg" {
   environment                     = var.environment
   cost_center                     = var.cost_center
   application                     = var.application
-  alb_target_group_arn            = module.alb.lb_target_group_arn
+  alb_target_group_arn            = module.alb.alb_target_group_arn
   iam_role                        = module.iam-policy.iam_role
   security_group_ids              = module.instance-sg.security_group_ids
   tags = {

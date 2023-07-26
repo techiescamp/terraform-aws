@@ -4,13 +4,8 @@ variable "tags" {
   description = "Extra tags to attach to the alb-asg resources"
 }
 
-variable "instance_profile" {
-  description = "Instance profile for the instance which the instance role is associated with"
-  type        = string
-}
-
-variable "instance_role" {
-  description = "Instance role for the instance"
+variable "iam_role" {
+  description = "IAM role for the instance"
   type        = string
 }
 
@@ -34,7 +29,7 @@ variable "vpc_id" {
   description = "The ID of the VPC to use for the resources."
 }
 
-variable "subnets" {
+variable "asg_subnets" {
   description = "A list of subnet IDs to use for the resources."
   type        = list(string)
 }
@@ -96,10 +91,5 @@ variable "application" {
 
 variable "alb_target_group_arn" {
   description = "load balancer target group arn"
-  type        = string
-}
-
-variable "iam_role" {
-  description = "iam role name"
   type        = string
 }
