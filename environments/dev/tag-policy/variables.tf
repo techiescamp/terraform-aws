@@ -1,19 +1,79 @@
 variable "region" {
   type        = string
-  description = "Region for the provider"
+  description = "The AWS region for provider configuration."
 }
 
 variable "policy_name" {
   type        = string
-  description = "Name for the tag policy"
+  description = "A descriptive name for the AWS Organizations Tag Policy."
 }
 
 variable "policy_type" {
   type        = string
-  description = "Type of the policy"
+  description = "The type of the AWS Organizations Tag Policy."
 }
 
 variable "target_id" {
   type        = number
-  description = "ID of the target"
+  description = "The ID of the target organizational unit to attach the Tag Policy."
+}
+
+variable "name_tag_key" {
+  type        = string
+  description = "The tag key for the 'Name' tag."
+}
+
+variable "name_enforce_for_values" {
+  type        = list(string)
+  description = "A list of tag values to enforce for the 'Name' tag."
+}
+
+variable "environment_tag_key" {
+  type        = string
+  description = "The tag key for the 'Environment' tag."
+}
+
+variable "environment_enforce_for_values" {
+  type        = list(string)
+  description = "A list of tag values to enforce for the 'Environment' tag."
+}
+
+variable "owner_tag_key" {
+  type        = string
+  description = "The tag key for the 'Owner' tag."
+}
+
+variable "owner_tag_value" {
+  type        = list(string)
+  description = "A list of valid tag values for the 'Owner' tag."
+}
+
+variable "owner_enforce_for_values" {
+  type        = list(string)
+  description = "A list of tag values to enforce for the 'Owner' tag."
+}
+
+variable "costcenter_tag_key" {
+  type        = string
+  description = "The tag key for the 'CostCenter' tag."
+}
+
+variable "costcenter_tag_value" {
+  type        = list(string)
+  description = "A list of valid tag values for the 'CostCenter' tag."
+}
+
+variable "costcenter_enforce_for_values" {
+  type        = list(string)
+  description = "A list of tag values to enforce for the 'CostCenter' tag."
+}
+
+variable "application_tag_key" {
+  type        = string
+  description = "The tag key for the 'Application' tag."
+}
+
+variable "application_enforce_for_values" {
+  type        = list(string)
+  description = "A list of tag values to enforce for the 'Application' tag."
 }
