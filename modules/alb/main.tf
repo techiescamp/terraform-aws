@@ -1,14 +1,14 @@
-resource "aws_lb" "application_load_balancer" {
-  name               = "${var.environment}-${var.application}-lb"
+resource "aws_alb" "application_load_balancer" {
+  name               = "${var.environment}-${var.application}-alb"
   internal           = var.internal
   load_balancer_type = var.loadbalancer_type
 
-  subnets         = var.subnets
+  subnets         = var.alb_subnets
   security_groups = var.security_group_ids
 
   tags = merge(
     {
-      Name        = "${var.environment}-${var.application}-lb",
+      Name        = "${var.environment}-${var.application}-alb",
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
@@ -18,7 +18,7 @@ resource "aws_lb" "application_load_balancer" {
   )
 }
 
-resource "aws_lb_target_group" "alb_tg" {
+resource "aws_alb_target_group" "alb_tg" {
   name_prefix = "alb-tg"
   port        = var.target_group_port
   protocol    = var.target_group_protocol
@@ -39,7 +39,7 @@ resource "aws_lb_target_group" "alb_tg" {
 
   tags = merge(
     {
-      Name        = "${var.environment}-${var.application}-lb-target-group"
+      Name        = "${var.environment}-${var.application}-alb-target-group"
       Environment = var.environment,
       Owner       = var.owner,
       CostCenter  = var.cost_center,
@@ -49,13 +49,13 @@ resource "aws_lb_target_group" "alb_tg" {
   )
 }
 
-resource "aws_lb_listener" "application_listener" {
-  load_balancer_arn = aws_lb.application_load_balancer.arn
+resource "aws_alb_listener" "application_listener" {
+  load_balancer_arn = aws_alb.application_load_balancer.arn
   port              = var.listener_port
   protocol          = var.listener_protocol
 
   default_action {
-    target_group_arn = aws_lb_target_group.alb_tg.arn
+    target_group_arn = aws_alb_target_group.alb_tg.arn
     type             = var.listener_type
   }
 }
