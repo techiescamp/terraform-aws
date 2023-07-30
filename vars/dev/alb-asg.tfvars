@@ -4,8 +4,8 @@ loadbalancer_type              = "application"
 alb_subnets                    = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
 
 #alb-sg
-alb_ingress_from_port          = [80, 8080]
-alb_ingress_to_port            = [80, 8080]
+alb_ingress_from_port          = [80, 22]
+alb_ingress_to_port            = [80, 22]
 alb_ingress_protocol           = ["tcp", "tcp"]
 alb_ingress_cidr_block         = ["0.0.0.0/0"]
 alb_egress_from_port           = [0]
