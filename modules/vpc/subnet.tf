@@ -7,12 +7,18 @@ resource "aws_subnet" "public" {
 
   tags = merge(
     {
-      Name        = "PublicSubnet",
+      Name        = "PublicSubnet-${count.index}",
       Project     = var.project,
       Environment = var.environment
     },
     var.tags
   )
+}
+
+resource "aws_route_table_association" "public" {
+  count          = length(aws_subnet.public)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_subnet" "app" {
@@ -23,12 +29,18 @@ resource "aws_subnet" "app" {
 
   tags = merge(
     {
-      Name        = "AppSubnet",
+      Name        = "AppSubnet-${count.index}",
       Project     = var.project,
       Environment = var.environment
     },
     var.tags
   )
+}
+
+resource "aws_route_table_association" "app" {
+  count          = length(aws_subnet.app)
+  subnet_id      = aws_subnet.app[count.index].id
+  route_table_id = aws_route_table.app.id
 }
 
 resource "aws_subnet" "db" {
@@ -39,12 +51,18 @@ resource "aws_subnet" "db" {
 
   tags = merge(
     {
-      Name        = "DbSubnet",
+      Name        = "DbSubnet-${count.index}",
       Project     = var.project,
       Environment = var.environment
     },
     var.tags
   )
+}
+
+resource "aws_route_table_association" "db" {
+  count          = length(aws_subnet.db)
+  subnet_id      = aws_subnet.db[count.index].id
+  route_table_id = aws_route_table.db.id
 }
 
 resource "aws_subnet" "management" {
@@ -55,10 +73,16 @@ resource "aws_subnet" "management" {
 
   tags = merge(
     {
-      Name        = "ManagementSubnet",
+      Name        = "ManagementSubnet-${count.index}",
       Project     = var.project,
       Environment = var.environment
     },
     var.tags
   )
+}
+
+resource "aws_route_table_association" "management" {
+  count          = length(aws_subnet.management)
+  subnet_id      = aws_subnet.management[count.index].id
+  route_table_id = aws_route_table.management.id
 }
