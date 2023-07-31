@@ -31,9 +31,10 @@ resource "aws_route_table" "app" {
 }
 
 resource "aws_route" "app" {
+  count = var.create_nat_gateway ? 1 : 0
   route_table_id         = aws_route_table.app.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.main.id
+  nat_gateway_id         = aws_nat_gateway.main[count.index].id
 }
 
 
@@ -51,9 +52,10 @@ resource "aws_route_table" "db" {
 }
 
 resource "aws_route" "db" {
+  count = var.create_nat_gateway ? 1 : 0
   route_table_id         = aws_route_table.db.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.main.id
+  nat_gateway_id         = aws_nat_gateway.main[count.index].id
 }
 
 resource "aws_route_table" "management" {
@@ -70,7 +72,8 @@ resource "aws_route_table" "management" {
 }
 
 resource "aws_route" "management" {
+  count = var.create_nat_gateway ? 1 : 0
   route_table_id         = aws_route_table.management.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.main.id
+  nat_gateway_id         = aws_nat_gateway.main[count.index].id
 }
