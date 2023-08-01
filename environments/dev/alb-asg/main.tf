@@ -17,7 +17,7 @@ module "alb-sg" {
   environment                     = var.environment
   owner                           = var.owner
   cost_center                     = var.cost_center
-  application                     ="${var.application}-alb"
+  application                     = var.application
   vpc_id                          = var.vpc_id
   ingress_from_port               = var.alb_ingress_from_port
   ingress_to_port                 = var.alb_ingress_to_port
@@ -57,15 +57,9 @@ module "alb" {
   security_group_ids              = module.alb-sg.security_group_ids
 }
 
-module "instance-sg" {
-  source                          = "../../../modules/security-group"
-  region                          = var.region
-  tags                            = var.tags
-  environment                     = var.environment
-  owner                           = var.owner
-  cost_center                     = var.cost_center
-  application                     = var.application
-  vpc_id                          = var.vpc_id
+module "asg" {
+  source                          = "../../../modules/asg"
+  ami_id                          = var.ami_id
   ingress_from_port               = var.ingress_from_port
   ingress_to_port                 = var.ingress_to_port
   ingress_protocol                = var.ingress_protocol
@@ -74,11 +68,6 @@ module "instance-sg" {
   egress_to_port                  = var.egress_to_port
   egress_protocol                 = var.egress_protocol
   egress_cidr_block               = var.egress_cidr_block
-}
-
-module "asg" {
-  source                          = "../../../modules/asg"
-  ami_id                          = var.ami_id
   instance_type                   = var.instance_type
   key_name                        = var.key_name
   vpc_id                          = var.vpc_id
@@ -95,7 +84,7 @@ module "asg" {
   application                     = var.application
   alb_target_group_arn            = module.alb.alb_target_group_arn
   iam_role                        = module.iam-policy.iam_role
-  security_group_ids              = module.instance-sg.security_group_ids
+  security_group_ids              = module.alb-sg.security_group_ids
   tags = {
     Owner                         = "${var.owner}"
     Environment                   = "${var.environment}"
