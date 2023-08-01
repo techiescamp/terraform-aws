@@ -3,13 +3,15 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidr_blocks[count.index]
   availability_zone       = var.availability_zones[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = var.map_public_ip_on_launch
 
   tags = merge(
     {
-      Name        = "PublicSubnet-${count.index}",
-      Project     = var.project,
-      Environment = var.environment
+      Name        = "${var.environment}-${var.application}-public-subnet-${count.index}",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
     },
     var.tags
   )
@@ -29,9 +31,11 @@ resource "aws_subnet" "app" {
 
   tags = merge(
     {
-      Name        = "AppSubnet-${count.index}",
-      Project     = var.project,
-      Environment = var.environment
+      Name        = "${var.environment}-${var.application}-app-subnet-${count.index}",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
     },
     var.tags
   )
@@ -51,9 +55,11 @@ resource "aws_subnet" "db" {
 
   tags = merge(
     {
-      Name        = "DbSubnet-${count.index}",
-      Project     = var.project,
-      Environment = var.environment
+      Name        = "${var.environment}-${var.application}-db-subnet-${count.index}",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
     },
     var.tags
   )
@@ -73,9 +79,11 @@ resource "aws_subnet" "management" {
 
   tags = merge(
     {
-      Name        = "ManagementSubnet-${count.index}",
-      Project     = var.project,
-      Environment = var.environment
+      Name        = "${var.environment}-${var.application}-management-subnet-${count.index}",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
     },
     var.tags
   )

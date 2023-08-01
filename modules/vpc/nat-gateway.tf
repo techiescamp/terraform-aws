@@ -1,6 +1,6 @@
 resource "aws_eip" "main" {
   count = var.create_nat_gateway ? 1 : 0
-  domain = "vpc"
+  domain = var.domain
 }
 
 resource "aws_nat_gateway" "main" {
@@ -11,9 +11,11 @@ resource "aws_nat_gateway" "main" {
 
   tags = merge(
     {
-      Name        = "NATGateway",
-      Project     = var.project,
-      Environment = var.environment
+      Name        = "${var.environment}-${var.application}-nat-gateway",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
     },
     var.tags
   )
