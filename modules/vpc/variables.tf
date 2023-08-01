@@ -99,5 +99,3 @@ variable "map_public_ip_on_launch" {
   type        = bool
   description = "whether to map public ip on launch or not"
 }
-
-
