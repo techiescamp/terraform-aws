@@ -43,46 +43,6 @@ variable "vpc_id" {
   description = "VPC ID for the security group"
 }
 
-variable "ingress_cidr_block" {
-  type        = list(string)
-  description = "CIDR blocks for EC2 security group ingress rules"
-}
-
-variable "ingress_from_port" {
-  description = "The starting port for ingress rules"
-  type        = list(number)
-}
-
-variable "ingress_to_port" {
-  description = "The ending port for ingress rules"
-  type        = list(number)
-}
-
-variable "ingress_protocol" {
-  description = "The protocol for ingress rules"
-  type        = list(any)
-}
-
-variable "egress_cidr_block" {
-  type        = list(string)
-  description = "CIDR blocks for EC2 security group egress rules"
-}
-
-variable "egress_from_port" {
-  description = "The starting port for egress rules"
-  type        = list(number)
-}
-
-variable "egress_to_port" {
-  description = "The ending port for egress rules"
-  type        = list(number)
-}
-
-variable "egress_protocol" {
-  description = "The protocol for egress rules"
-  type        = list(any)
-}
-
 variable "tags" {
   default     = {}
   type        = map(string)
@@ -95,7 +55,7 @@ variable "name" {
 }
 
 variable "environment" {
-  type        = list(string)
+  type        = string
   description = "The environment name for the resources"
 }
 
@@ -112,4 +72,104 @@ variable "cost_center" {
 variable "application" {
   type        = string
   description = "Name of the application related to the resource"
+}
+
+variable "ingress_cidr_from_port" {
+  type        = list(number)
+  description = "List of starting ports for cidr ingress rules of the EC2 security group."
+}
+
+variable "ingress_cidr_to_port" {
+  type        = list(number)
+  description = "List of ending ports for cidr ingress rules of the EC2 security group."
+}
+
+variable "ingress_cidr_protocol" {
+  type        = list(string)
+  description = "List of protocols for cidr ingress rules of the EC2 security group."
+}
+
+variable "ingress_cidr_block" {
+  type        = list(string)
+  description = "List of CIDR blocks for cidr ingress rules of the EC2 security group."
+}
+
+variable "ingress_sg_from_port" {
+  type        = list(number)
+  description = "List of starting ports for sg ingress rules of the EC2 security group."
+}
+
+variable "ingress_sg_to_port" {
+  type        = list(number)
+  description = "List of ending ports for sg ingress rules of the EC2 security group."
+}
+
+variable "ingress_sg_protocol" {
+  type        = list(string)
+  description = "List of protocols for sg ingress rules of the EC2 security group."
+}
+
+variable "ingress_security_group_ids" {
+  type        = list(string)
+  description = "List of Security Group ids for sg ingress rules of the EC2 security group."
+}
+
+variable "egress_cidr_from_port" {
+  type        = list(number)
+  description = "List of starting ports for cidr egress rules of the EC2 security group."
+}
+
+variable "egress_cidr_to_port" {
+  type        = list(number)
+  description = "List of ending ports for cidr egress rules of the EC2 security group."
+}
+
+variable "egress_cidr_protocol" {
+  type        = list(string)
+  description = "List of protocols for cidr egress rules of the EC2 security group."
+}
+
+variable "egress_cidr_block" {
+  type        = list(string)
+  description = "List of CIDR blocks for cidr egress rules of the EC2 security group."
+}
+
+variable "egress_sg_from_port" {
+  type        = list(number)
+  description = "List of starting ports for sg egress rules of the EC2 security group."
+}
+
+variable "egress_sg_to_port" {
+  type        = list(number)
+  description = "List of ending ports for sg egress rules of the EC2 security group."
+}
+
+variable "egress_sg_protocol" {
+  type        = list(string)
+  description = "List of protocols for sg egress rules of the EC2 security group."
+}
+
+variable "egress_security_group_ids" {
+  type        = list(string)
+  description = "List of Security Group ids for sg egress rules of the EC2 security group."
+}
+
+variable "create_ingress_cidr" {
+  type        = bool
+  description = "Enable or disable CIDR block ingress rules."
+}
+
+variable "create_ingress_sg" {
+  type        = bool
+  description = "Enable or disable Security Groups ingress rules."
+}
+
+variable "create_egress_cidr" {
+  type        = bool
+  description = "Enable or disable CIDR block egress rules."
+}
+
+variable "create_egress_sg" {
+  type        = bool
+  description = "Enable or disable Security Groups egress rules."
 }

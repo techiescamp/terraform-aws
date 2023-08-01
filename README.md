@@ -22,6 +22,31 @@ terraform destroy \
     -backend-config="dynamodb_table=terraform-state-lock"
 ```
 
+#### VPC Provisioning
+
+cd into the `environments/dev/vpc` directory and run the following commands:
+
+1. Init Terraform in the directory `environments/dev/vpc`
+
+```
+terraform init
+```
+2. To preview the changes in code
+
+```
+terraform plan -var-file=../../../vars/dev/vpc.tfvars
+```
+3. To apply the changes
+
+```
+terraform apply -var-file=../../../vars/dev/vpc.tfvars
+```
+4. To destroy the resources created using the code
+
+```
+terraform destroy -var-file=../../../vars/dev/vpc.tfvars
+
+
 #### RDS Provisioning
 
 cd into the `environments/dev/rds` directory and run the following commands:
