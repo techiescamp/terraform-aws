@@ -7,14 +7,14 @@ alb_subnets                    = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac16
 
 #alb-sg
 alb_sg_name                    = "alb-sg"
-alb_ingress_cidr_from_port     = [22, 80]
-alb_ingress_cidr_to_port       = [22, 80]
-alb_ingress_cidr_protocol      = ["tcp", "tcp"]
+alb_ingress_cidr_from_port     = [80]
+alb_ingress_cidr_to_port       = [80]
+alb_ingress_cidr_protocol      = ["tcp"]
 alb_ingress_cidr_block         = ["0.0.0.0/0"]
 alb_create_ingress_cidr        = true
 
-alb_ingress_sg_from_port       = [80]
-alb_ingress_sg_to_port         = [80]
+alb_ingress_sg_from_port       = [8080]
+alb_ingress_sg_to_port         = [8080]
 alb_ingress_sg_protocol        = ["tcp"]
 alb_create_ingress_sg          = false
 
@@ -32,15 +32,15 @@ alb_create_egress_sg           = false
 security_group_id             = ["sg-0aa656667277a3e65"]
 
 # instance sg
-sg_name                        = "instance-sg"
-ingress_cidr_from_port         = [8080]
-ingress_cidr_to_port           = [8080]
+sg_name                        = "asg-sg"
+ingress_cidr_from_port         = [80]
+ingress_cidr_to_port           = [80]
 ingress_cidr_protocol          = ["tcp"]
 ingress_cidr_block             = ["0.0.0.0/0"]
 create_ingress_cidr            = true
 
-ingress_sg_from_port           = [80]
-ingress_sg_to_port             = [80]
+ingress_sg_from_port           = [8080]
+ingress_sg_to_port             = [8080]
 ingress_sg_protocol            = ["tcp"]
 create_ingress_sg              = true
 
