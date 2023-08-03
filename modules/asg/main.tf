@@ -5,44 +5,6 @@ locals {
   )
 }
 
-resource "aws_security_group" "instance_sg" {
-  name        = "${var.environment}-${var.application}-instance-sg"
-  description = "Security Group for Instance"
-  vpc_id      = var.vpc_id
-
-  dynamic "ingress" {
-    for_each = toset(range(length(var.ingress_from_port)))
-    content {
-      from_port   = var.ingress_from_port[ingress.key]
-      to_port     = var.ingress_to_port[ingress.key]
-      protocol    = var.ingress_protocol[ingress.key]
-      security_groups = var.security_group_ids
-    }
-  }
-
-  dynamic "egress" {
-    for_each = toset(range(length(var.egress_from_port)))
-    content {
-      from_port   = var.egress_from_port[egress.key]
-      to_port     = var.egress_to_port[egress.key]
-      protocol    = var.egress_protocol[egress.key]
-      cidr_blocks = var.egress_cidr_block
-    }
-  }
-
-  tags = merge(
-    {
-      "Name"        = "${var.environment}-${var.application}-sg"
-      "Environment" = var.environment
-      "Owner"       = var.owner
-      "CostCenter"  = var.cost_center
-      "Application" = var.application
-    },
-    var.tags
-  )
-
-}
-
 resource "aws_iam_instance_profile" "instance_profile" {
   name = "${var.environment}-${var.application}-instance_profile"
 
@@ -61,7 +23,7 @@ resource "aws_launch_template" "application_lt" {
 
   network_interfaces {
     associate_public_ip_address = var.public_access
-    security_groups             = [aws_security_group.instance_sg.id]
+    security_groups             = var.security_group_ids
   }
 
   user_data = base64encode(var.user_data)
