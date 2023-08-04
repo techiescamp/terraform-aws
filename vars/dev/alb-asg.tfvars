@@ -16,6 +16,7 @@ alb_create_ingress_cidr        = true
 alb_ingress_sg_from_port       = [8080]
 alb_ingress_sg_to_port         = [8080]
 alb_ingress_sg_protocol        = ["tcp"]
+alb_ingress_security_group_ids = ["null"]
 alb_create_ingress_sg          = false
 
 alb_egress_cidr_from_port      = [0]
@@ -27,9 +28,8 @@ alb_create_egress_cidr         = true
 alb_egress_sg_from_port        = [0]
 alb_egress_sg_to_port          = [0]
 alb_egress_sg_protocol         = ["-1"]
+alb_egress_security_group_ids  = ["null"]
 alb_create_egress_sg           = false
-
-security_group_id             = ["sg-0aa656667277a3e65"]
 
 # instance sg
 sg_name                        = "asg-sg"

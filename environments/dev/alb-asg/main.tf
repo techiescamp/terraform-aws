@@ -31,7 +31,7 @@ module "alb-sg" {
   ingress_sg_from_port            = var.alb_ingress_sg_from_port
   ingress_sg_to_port              = var.alb_ingress_sg_to_port
   ingress_sg_protocol             = var.alb_ingress_sg_protocol
-  ingress_security_group_ids      = var.security_group_id
+  ingress_security_group_ids      = var.alb_ingress_security_group_ids
   create_ingress_sg               = var.alb_create_ingress_sg
 
   egress_cidr_from_port           = var.alb_egress_cidr_from_port
@@ -43,7 +43,7 @@ module "alb-sg" {
   egress_sg_from_port             = var.alb_egress_sg_from_port
   egress_sg_to_port               = var.alb_egress_sg_to_port
   egress_sg_protocol              = var.alb_egress_sg_protocol
-  egress_security_group_ids       = var.security_group_id
+  egress_security_group_ids       = var.alb_egress_security_group_ids
   create_egress_sg                = var.alb_create_egress_sg
 }
 

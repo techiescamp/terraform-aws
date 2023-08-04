@@ -170,11 +170,6 @@ variable "application" {
   description = "Name of the application"
 }
 
-variable "security_group_id" {
-  description = "List of security group IDs to attach"
-  type        = list(string)
-}
-
 variable "ingress_cidr_block" {
   type        = list(string)
   description = "CIDR blocks for EC2 security group ingress rules"
@@ -306,6 +301,11 @@ variable "alb_ingress_sg_protocol" {
   description = "List of protocols for sg ingress rules of the EC2 security group."
 }
 
+variable "alb_ingress_security_group_ids" {
+  type        = list(any)
+  description = "security groups id for sg ingress rules"
+}
+
 variable "alb_create_ingress_sg" {
   type        = bool
   description = "Enable or disable Security Groups ingress rules."
@@ -349,6 +349,11 @@ variable "alb_egress_sg_to_port" {
 variable "alb_egress_sg_protocol" {
   description = "The protocol for egress rules"
   type        = list(any)
+}
+
+variable "alb_egress_security_group_ids" {
+  type        = list(any)
+  description = "security groups id for sg egress rules"
 }
 
 variable "alb_create_egress_sg" {
