@@ -49,11 +49,11 @@ resource "aws_security_group" "instance_sg" {
 
   tags = merge(
     {
-      "Name"        = "${var.name}-sg"
-      "Environment" = var.environment
-      "Owner"       = var.owner
-      "CostCenter"  = var.cost_center
-      "Application" = var.application
+      Name        = "${var.name}-sg"
+      Environment = var.environment
+      Owner       = var.owner
+      CostCenter  = var.cost_center
+      Application = var.application
     },
     var.tags
   )

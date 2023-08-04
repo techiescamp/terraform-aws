@@ -95,7 +95,7 @@ variable "egress_cidr_to_port" {
 }
 
 variable "egress_cidr_protocol" {
-  type        = list(string)
+  type        = list(any)
   description = "List of protocols for cidr egress rules of the EC2 security group."
 }
 
@@ -115,7 +115,7 @@ variable "egress_sg_to_port" {
 }
 
 variable "egress_sg_protocol" {
-  type        = list(string)
+  type        = list(any)
   description = "List of protocols for sg egress rules of the EC2 security group."
 }
 
