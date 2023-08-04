@@ -3,11 +3,6 @@ variable "region" {
   description = "Region of the ec2 instance"
 }
 
-variable "instance_name" {
-  type        = string
-  description = "Name of the ec2 instance"
-}
-
 variable "ami_id" {
   type        = string
   description = "AMI Id of the ec2 instance"
