@@ -10,7 +10,7 @@ resource "aws_instance" "ec2_instance" {
 
   tags = merge(
     {
-      Name        = "${var.environment}-${var.application}"
+      Name        = "${var.owner}-Instance"
       Environment = var.environment
       Owner       = var.owner
       CostCenter  = var.cost_center
