@@ -1,22 +1,20 @@
 # EC2 Instance Variables
-region         = "eu-north-1"
-instance_name  = "Instance"
-ami_id         = "ami-0989fb15ce71ba39e"
-instance_type  = "t3.micro"
+region         = "us-west-2"
+ami_id         = "ami-03f65b8614a860c29"
+instance_type  = "t2.micro"
 key_name       = "techiescamp"
 instance_count = 1
-subnet_ids     = ["subnet-07fab58fa9620dfb9", "subnet-051fbcbaa925b8c44", "subnet-0c46e29a23c5ba3b8"]
+subnet_ids     = ["subnet-058a7514ba8adbb07", "subnet-04b1f595ef8c29542", "subnet-032f5077729435858"]
 
 # EC2 Security Group Variables
-sg_name = "Instance_sg"
-vpc_id  = "vpc-07d73d0c9081754d0"
+vpc_id  = "vpc-0a5ca4a92c2e10163"
 
 # Tag Keys
-name        = "Instance"
+name        = ""
 owner       = "techiescamp"
-environment = "dev"
+environment = ""
 cost_center = "techiescamp-commerce"
-application = "web-app"
+application = ""
 
 # CIDR Ingress Variables
 create_ingress_cidr    = true
@@ -30,7 +28,7 @@ create_ingress_sg          = false
 ingress_sg_from_port       = [80]
 ingress_sg_to_port         = [80]
 ingress_sg_protocol        = ["tcp"]
-ingress_security_group_ids = ["sg-0aa656667277a3e65"]
+ingress_security_group_ids = ["sg-0fe4363da3994c100"]
 
 # CIDR Egress Variables
 create_egress_cidr    = true
@@ -44,4 +42,4 @@ create_egress_sg          = false
 egress_sg_from_port       = [0]
 egress_sg_to_port         = [0]
 egress_sg_protocol        = ["-1"]
-egress_security_group_ids = ["sg-0aa656667277a3e65"]
+egress_security_group_ids = ["sg-0fe4363da3994c100"]
