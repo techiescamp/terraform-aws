@@ -120,11 +120,6 @@ variable "asg_subnets" {
   type        = list(string)
 }
 
-variable "security_group_ids" {
-  type        = list(string)
-  description = "Security group id of the ec2 instance"
-}
-
 variable "public_access" {
   description = "Whether the instance is public or not"
   type        = bool
@@ -175,83 +170,195 @@ variable "application" {
   description = "Name of the application"
 }
 
-
 variable "ingress_cidr_block" {
   type        = list(string)
-  description = "CIDR blocks for EC2 security group ingress rules"
+  description = "CIDR blocks for the security group ingress rules"
 }
 
-variable "ingress_from_port" {
+variable "ingress_cidr_from_port" {
   description = "The starting port for ingress rules"
   type        = list(number)
 }
 
-variable "ingress_to_port" {
+variable "ingress_cidr_to_port" {
   description = "The ending port for ingress rules"
   type        = list(number)
 }
 
-variable "ingress_protocol" {
+variable "ingress_cidr_protocol" {
   description = "The protocol for ingress rules"
   type        = list(any)
+}
+
+variable "create_ingress_cidr" {
+  description = "Whether to create the ingress cidr or not"
+  type        = bool
+}
+
+variable "ingress_sg_from_port" {
+  type        = list(number)
+  description = "List of starting ports for sg ingress rules"
+}
+
+variable "ingress_sg_to_port" {
+  type        = list(number)
+  description = "List of ending ports for sg ingress rules"
+}
+
+variable "ingress_sg_protocol" {
+  type        = list(any)
+  description = "List of protocols for sg ingress rules"
+}
+
+variable "ingress_security_group_ids" {
+  type        = list(string)
+  default     = [ "sg-0fe4363da3994c100" ]
+  description = "List of Security Group ids for sg ingress rules"
+}
+
+variable "create_ingress_sg" {
+  type        = bool
+  description = "Enable or disable Security Groups ingress rules."
 }
 
 variable "egress_cidr_block" {
   type        = list(string)
-  description = "CIDR blocks for EC2 security group egress rules"
+  description = "CIDR blocks for group egress rules"
 }
 
-variable "egress_from_port" {
+variable "egress_cidr_from_port" {
   description = "The starting port for egress rules"
   type        = list(number)
 }
 
-variable "egress_to_port" {
+variable "egress_cidr_to_port" {
   description = "The ending port for egress rules"
   type        = list(number)
 }
 
-variable "egress_protocol" {
+variable "egress_cidr_protocol" {
   description = "The protocol for egress rules"
   type        = list(any)
 }
 
-variable "alb_ingress_cidr_block" {
-  type        = list(string)
-  description = "CIDR blocks for EC2 security group ingress rules"
+variable "create_egress_cidr" {
+  type        = bool
+  description = "Enable or disable CIDR block egress rules."
 }
 
-variable "alb_ingress_from_port" {
+variable "egress_sg_from_port" {
+  description = "The starting port for egress rules"
+  type        = list(number)
+}
+
+variable "egress_sg_to_port" {
+  description = "The ending port for egress rules"
+  type        = list(number)
+}
+
+variable "egress_sg_protocol" {
+  description = "The protocol for egress rules"
+  type        = list(any)
+}
+
+variable "egress_security_group_ids" {
+  type        = list(string)
+  default     = [ "sg-0fe4363da3994c100" ]
+  description = "List of Security Group ids for sg egress rules"
+}
+
+variable "create_egress_sg" {
+  type        = bool
+  description = "Enable or disable CIDR block egress rules."
+}
+
+
+variable "alb_ingress_cidr_block" {
+  type        = list(string)
+  description = "CIDR blocks for the security group ingress rules"
+}
+
+variable "alb_ingress_cidr_from_port" {
   description = "The starting port for ingress rules"
   type        = list(number)
 }
 
-variable "alb_ingress_to_port" {
+variable "alb_ingress_cidr_to_port" {
   description = "The ending port for ingress rules"
   type        = list(number)
 }
 
-variable "alb_ingress_protocol" {
+variable "alb_ingress_cidr_protocol" {
   description = "The protocol for ingress rules"
   type        = list(any)
 }
 
-variable "alb_egress_cidr_block" {
-  type        = list(string)
-  description = "CIDR blocks for EC2 security group egress rules"
+variable "alb_create_ingress_cidr" {
+  description = "Whether to create the ingress cidr or not"
+  type        = bool
 }
 
-variable "alb_egress_from_port" {
+variable "alb_ingress_sg_from_port" {
+  type        = list(number)
+  description = "List of starting ports for sg ingress rules"
+}
+
+variable "alb_ingress_sg_to_port" {
+  type        = list(number)
+  description = "List of ending ports for sg ingress rules"
+}
+
+variable "alb_ingress_sg_protocol" {
+  type        = list(any)
+  description = "List of protocols for sg ingress rules"
+}
+
+variable "alb_create_ingress_sg" {
+  type        = bool
+  description = "Enable or disable Security Groups ingress rules."
+}
+
+variable "alb_egress_cidr_block" {
+  type        = list(string)
+  description = "CIDR blocks for the security group egress rules"
+}
+
+variable "alb_egress_cidr_from_port" {
   description = "The starting port for egress rules"
   type        = list(number)
 }
 
-variable "alb_egress_to_port" {
+variable "alb_egress_cidr_to_port" {
   description = "The ending port for egress rules"
   type        = list(number)
 }
 
-variable "alb_egress_protocol" {
+variable "alb_egress_cidr_protocol" {
   description = "The protocol for egress rules"
   type        = list(any)
+}
+
+variable "alb_create_egress_cidr" {
+  type        = bool
+  description = "Enable or disable CIDR block egress rules."
+}
+
+variable "alb_egress_sg_from_port" {
+  description = "The starting port for egress rules"
+  type        = list(number)
+}
+
+variable "alb_egress_sg_to_port" {
+  description = "The ending port for egress rules"
+  type        = list(number)
+}
+
+variable "alb_egress_sg_protocol" {
+  description = "The protocol for egress rules"
+  type        = list(any)
+}
+
+variable "alb_create_egress_sg" {
+  type        = bool
+  description = "Enable or disable CIDR block egress rules."
 }

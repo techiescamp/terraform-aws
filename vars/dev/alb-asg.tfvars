@@ -1,27 +1,55 @@
+region                           = "us-west-2"
+
 # alb
 internal                       = false
 loadbalancer_type              = "application"
 alb_subnets                    = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
 
 #alb-sg
-alb_ingress_from_port          = [80, 22]
-alb_ingress_to_port            = [80, 22]
-alb_ingress_protocol           = ["tcp", "tcp"]
+alb_ingress_cidr_from_port     = [80]
+alb_ingress_cidr_to_port       = [80]
+alb_ingress_cidr_protocol      = ["tcp"]
 alb_ingress_cidr_block         = ["0.0.0.0/0"]
-alb_egress_from_port           = [0]
-alb_egress_to_port             = [0]
-alb_egress_protocol            = ["-1"]
+alb_create_ingress_cidr        = true
+
+alb_ingress_sg_from_port       = [8080]
+alb_ingress_sg_to_port         = [8080]
+alb_ingress_sg_protocol        = ["tcp"]
+alb_create_ingress_sg          = false
+
+alb_egress_cidr_from_port      = [0]
+alb_egress_cidr_to_port        = [0]
+alb_egress_cidr_protocol       = ["-1"]
 alb_egress_cidr_block          = ["0.0.0.0/0"]
+alb_create_egress_cidr         = true
+
+alb_egress_sg_from_port        = [0]
+alb_egress_sg_to_port          = [0]
+alb_egress_sg_protocol         = ["-1"]
+alb_create_egress_sg           = false
 
 # instance sg
-ingress_from_port              = [8080]
-ingress_to_port                = [8080]
-ingress_protocol               = ["tcp"]
+ingress_cidr_from_port         = [80]
+ingress_cidr_to_port           = [80]
+ingress_cidr_protocol          = ["tcp"]
 ingress_cidr_block             = ["0.0.0.0/0"]
-egress_from_port               = [0]
-egress_to_port                 = [0]
-egress_protocol                = ["-1"]
+create_ingress_cidr            = true
+
+ingress_sg_from_port           = [8080]
+ingress_sg_to_port             = [8080]
+ingress_sg_protocol            = ["tcp"]
+create_ingress_sg              = true
+
+egress_cidr_from_port          = [0]
+egress_cidr_to_port            = [0]
+egress_cidr_protocol           = ["-1"]
 egress_cidr_block              = ["0.0.0.0/0"]
+create_egress_cidr             = true
+
+egress_sg_from_port            = [8080]
+egress_sg_to_port              = [8080]
+egress_sg_protocol             = ["tcp"]
+create_egress_sg               = false
 
 # target_group
 target_group_port              = 8080
@@ -44,13 +72,11 @@ listener_protocol               = "HTTP"
 listener_type                   = "forward"
 
 #launch_template
-region                           = "us-west-2"
 ami_id                           = "ami-020f3ca563c92097b"
 instance_type                    = "t2.medium"
 key_name                         = "techiescamp"
 vpc_id                           = "vpc-0a5ca4a92c2e10163"
 asg_subnets                      = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
-security_group_ids               = ["sg-056e31eec8fdb151f"]
 public_access                    = true
 
 #user_data
