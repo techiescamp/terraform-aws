@@ -94,3 +94,12 @@ variable "alb_target_group_arn" {
   type        = string
 }
 
+variable "instance_warmup_time" {
+  description = "Time required to warm up a new instance"
+  type        = number
+}
+
+variable "target_value" {
+  description = "Threshold value of asg to start scaling"
+  type        = number
+}
