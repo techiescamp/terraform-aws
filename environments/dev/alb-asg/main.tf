@@ -16,9 +16,9 @@ module "alb-sg" {
   tags                            = var.tags
   name                            = "${var.environment}-${var.application}"
   environment                     = var.environment
-  owner                           = "${var.owner}-alb"
+  owner                           = var.owner
   cost_center                     = var.cost_center
-  application                     = var.application
+  application                     = "${var.application}-alb"
   vpc_id                          = var.vpc_id
 
   ingress_cidr_from_port          = var.alb_ingress_cidr_from_port
