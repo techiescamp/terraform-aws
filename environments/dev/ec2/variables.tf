@@ -3,11 +3,6 @@ variable "region" {
   description = "Region of the EC2 instance"
 }
 
-variable "instance_name" {
-  type        = string
-  description = "Name of the EC2 instance"
-}
-
 variable "ami_id" {
   type        = string
   description = "AMI ID of the EC2 instance"
@@ -31,11 +26,6 @@ variable "instance_count" {
 variable "subnet_ids" {
   type        = list(string)
   description = "Subnet IDs of the EC2 instance"
-}
-
-variable "sg_name" {
-  type        = string
-  description = "Security group name for the instance"
 }
 
 variable "vpc_id" {
@@ -125,7 +115,7 @@ variable "egress_cidr_to_port" {
 }
 
 variable "egress_cidr_protocol" {
-  type        = list(string)
+  type        = list(any)
   description = "List of protocols for cidr egress rules of the EC2 security group."
 }
 
@@ -145,7 +135,7 @@ variable "egress_sg_to_port" {
 }
 
 variable "egress_sg_protocol" {
-  type        = list(string)
+  type        = list(any)
   description = "List of protocols for sg egress rules of the EC2 security group."
 }
 

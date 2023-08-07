@@ -6,7 +6,6 @@ loadbalancer_type              = "application"
 alb_subnets                    = ["subnet-058a7514ba8adbb07", "subnet-0dbcd1ac168414927", "subnet-032f5077729435858"]
 
 #alb-sg
-alb_sg_name                    = "alb-sg"
 alb_ingress_cidr_from_port     = [80]
 alb_ingress_cidr_to_port       = [80]
 alb_ingress_cidr_protocol      = ["tcp"]
@@ -29,10 +28,7 @@ alb_egress_sg_to_port          = [0]
 alb_egress_sg_protocol         = ["-1"]
 alb_create_egress_sg           = false
 
-security_group_id             = ["sg-0aa656667277a3e65"]
-
 # instance sg
-sg_name                        = "asg-sg"
 ingress_cidr_from_port         = [80]
 ingress_cidr_to_port           = [80]
 ingress_cidr_protocol          = ["tcp"]
