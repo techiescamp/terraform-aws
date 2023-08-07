@@ -58,6 +58,22 @@ resource "aws_autoscaling_group" "application_asg" {
 
 }
 
+resource "aws_autoscaling_policy" "cpu_scaling_policy" {
+  name                   = "${var.environment}-${var.application}-cpu-scaling-policy"
+  policy_type            = "TargetTrackingScaling"
+  estimated_instance_warmup = var.instance_warmup_time
+  autoscaling_group_name = aws_autoscaling_group.application_asg.name
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = var.target_value
+  }
+}
+
+
 resource "aws_autoscaling_attachment" "application_asg_attachment" {
   autoscaling_group_name = aws_autoscaling_group.application_asg.name
   lb_target_group_arn    = var.alb_target_group_arn

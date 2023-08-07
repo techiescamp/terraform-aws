@@ -29,8 +29,8 @@ alb_egress_sg_protocol         = ["-1"]
 alb_create_egress_sg           = false
 
 # instance sg
-ingress_cidr_from_port         = [80]
-ingress_cidr_to_port           = [80]
+ingress_cidr_from_port         = [22]
+ingress_cidr_to_port           = [22]
 ingress_cidr_protocol          = ["tcp"]
 ingress_cidr_block             = ["0.0.0.0/0"]
 create_ingress_cidr            = true
@@ -86,10 +86,12 @@ user_data                        = <<-EOF
                                    EOF
 
 #autoscaling_group
-max_size                         = 1
+max_size                         = 2
 min_size                         = 1
 desired_capacity                 = 1
 propagate_at_launch              = true
+instance_warmup_time             = 30
+target_value                     = 50
 
 #tags
 owner                            = "techiescamp"

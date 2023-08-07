@@ -127,6 +127,8 @@ module "asg" {
   environment                     = var.environment
   cost_center                     = var.cost_center
   application                     = var.application
+  instance_warmup_time            = var.instance_warmup_time
+  target_value                    = var.target_value
   alb_target_group_arn            = module.alb.alb_target_group_arn
   iam_role                        = module.iam-policy.iam_role
   security_group_ids              = module.instance-sg.security_group_ids

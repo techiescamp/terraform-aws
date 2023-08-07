@@ -362,3 +362,13 @@ variable "alb_create_egress_sg" {
   type        = bool
   description = "Enable or disable CIDR block egress rules."
 }
+
+variable "instance_warmup_time" {
+  description = "Time required to warm up a new instance"
+  type        = number
+}
+
+variable "target_value" {
+  description = "Threshold value of asg to start scaling"
+  type        = number
+}
