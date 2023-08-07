@@ -5,7 +5,6 @@ provider "aws" {
 module "ec2" {
   source             = "../../../modules/ec2"
   region             = var.region
-  instance_name      = var.instance_name
   ami_id             = var.ami_id
   instance_type      = var.instance_type
   key_name           = var.key_name
@@ -28,7 +27,6 @@ module "security-group" {
   owner       = var.owner
   cost_center = var.cost_center
   application = var.application
-  sg_name     = var.sg_name
   vpc_id      = var.vpc_id
 
   ingress_cidr_from_port     = var.ingress_cidr_from_port
