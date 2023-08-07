@@ -1,5 +1,5 @@
 resource "aws_security_group" "instance_sg" {
-  name        = "${var.owner}-sg"
+  name        = "${var.environment}-${var.application}"
   description = "Security Group for Instance"
   vpc_id      = var.vpc_id
 
@@ -49,7 +49,7 @@ resource "aws_security_group" "instance_sg" {
 
   tags = merge(
     {
-      Name        = "${var.owner}-sg"
+      Name        = "${var.environment}-${var.application}"
       Environment = var.environment
       Owner       = var.owner
       CostCenter  = var.cost_center
