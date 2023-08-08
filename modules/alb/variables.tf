@@ -79,12 +79,12 @@ variable "health_check_timeout" {
   type        = number
 }
 
-variable "health_check_healthy_treshold" {
+variable "health_check_healthy_threshold" {
   description = "Health check healthy threshold"
   type        = number
 }
 
-variable "health_check_unhealthy_treshold" {
+variable "health_check_unhealthy_threshold" {
   description = "Health check unhealthy threshold"
   type        = number
 }

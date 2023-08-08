@@ -31,8 +31,8 @@ resource "aws_alb_target_group" "alb_tg" {
     protocol            = var.health_check_protocol
     interval            = var.health_check_interval
     timeout             = var.health_check_timeout
-    healthy_threshold   = var.health_check_healthy_treshold
-    unhealthy_threshold = var.health_check_unhealthy_treshold
+    healthy_threshold   = var.health_check_healthy_threshold
+    unhealthy_threshold = var.health_check_unhealthy_threshold
   }
 
   load_balancing_algorithm_type = var.load_balancing_algorithm

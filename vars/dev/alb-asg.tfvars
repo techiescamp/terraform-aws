@@ -63,8 +63,8 @@ health_check_port               = 8080
 health_check_protocol           = "HTTP"
 health_check_interval           = 30
 health_check_timeout            = 5
-health_check_healthy_treshold   = 2
-health_check_unhealthy_treshold = 2
+health_check_healthy_threshold  = 2
+health_check_unhealthy_threshold= 2
 
 #alb_listener
 listener_port                   = 80
