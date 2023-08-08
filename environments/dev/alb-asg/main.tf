@@ -62,8 +62,8 @@ module "alb" {
   health_check_protocol           = var.health_check_protocol
   health_check_interval           = var.health_check_interval
   health_check_timeout            = var.health_check_timeout
-  health_check_healthy_treshold   = var.health_check_healthy_treshold
-  health_check_unhealthy_treshold = var.health_check_unhealthy_treshold
+  health_check_healthy_threshold  = var.health_check_healthy_threshold
+  health_check_unhealthy_threshold= var.health_check_unhealthy_threshold
   listener_port                   = var.listener_port
   listener_protocol               = var.listener_protocol
   listener_type                   = var.listener_type
