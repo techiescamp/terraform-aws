@@ -23,19 +23,9 @@ variable "name_tag_key" {
   description = "The tag key for the 'Name' tag."
 }
 
-variable "name_enforce_for_values" {
-  type        = list(string)
-  description = "A list of tag values to enforce for the 'Name' tag."
-}
-
 variable "environment_tag_key" {
   type        = string
   description = "The tag key for the 'Environment' tag."
-}
-
-variable "environment_enforce_for_values" {
-  type        = list(string)
-  description = "A list of tag values to enforce for the 'Environment' tag."
 }
 
 variable "owner_tag_key" {
@@ -48,11 +38,6 @@ variable "owner_tag_value" {
   description = "A list of valid tag values for the 'Owner' tag."
 }
 
-variable "owner_enforce_for_values" {
-  type        = list(string)
-  description = "A list of tag values to enforce for the 'Owner' tag."
-}
-
 variable "costcenter_tag_key" {
   type        = string
   description = "The tag key for the 'CostCenter' tag."
@@ -63,17 +48,12 @@ variable "costcenter_tag_value" {
   description = "A list of valid tag values for the 'CostCenter' tag."
 }
 
-variable "costcenter_enforce_for_values" {
-  type        = list(string)
-  description = "A list of tag values to enforce for the 'CostCenter' tag."
-}
-
 variable "application_tag_key" {
   type        = string
   description = "The tag key for the 'Application' tag."
 }
 
-variable "application_enforce_for_values" {
+variable "enforce_for_values" {
   type        = list(string)
   description = "A list of tag values to enforce for the 'Application' tag."
 }
