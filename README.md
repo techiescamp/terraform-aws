@@ -11,15 +11,8 @@ terraform init \
     -backend-config="key=dev/vpc.tfstate" \
     -backend-config="bucket=dcube-terraform-state" \
     -backend-config="region=us-west-2" \
-    -backend-config="dynamodb_table=terraform-state-lock"
-```
-```
-
-terraform destroy \
-    -backend-config="key=dev/vpc.tfstate" \
-    -backend-config="bucket=dcube-terraform-state" \
-    -backend-config="region=us-west-2" \
-    -backend-config="dynamodb_table=terraform-state-lock"
+    -backend-config="dynamodb_table=terraform-state-lock" \
+    -var-file=../../../vars/dev/vpc.tfvars
 ```
 
 #### VPC Provisioning
