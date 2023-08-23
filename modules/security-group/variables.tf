@@ -14,11 +14,6 @@ variable "tags" {
   description = "Extra tags to attach to the EC2 security group resources."
 }
 
-variable "name" {
-  type        = string
-  description = "The name of the resources."
-}
-
 variable "environment" {
   type        = string
   description = "The environment name for the resources."
