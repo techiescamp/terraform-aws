@@ -20,7 +20,7 @@ application = ""
 create_ingress_cidr    = true
 ingress_cidr_from_port = [22]
 ingress_cidr_to_port   = [22]
-ingress_cidr_protocol  = ["tcp"]
+ingress_cidr_protocol  = ["tcpp"]
 ingress_cidr_block     = ["10.10.0.0/16"]
 
 # Security Group Ingress Variables
