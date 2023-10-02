@@ -40,6 +40,11 @@ variable "management_subnet_cidr_blocks" {
   description = "List of management subnet CIDR blocks"
 }
 
+variable "platform_subnet_cidr_blocks" {
+  type        = list(any)
+  description = "List of platform subnet CIDR blocks"
+}
+
 variable "availability_zones" {
   type        = list(any)
   description = "List of availability zones"

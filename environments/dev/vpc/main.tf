@@ -20,6 +20,7 @@ module "vpc" {
   app_subnet_cidr_blocks        = var.app_subnet_cidr_blocks
   db_subnet_cidr_blocks         = var.db_subnet_cidr_blocks
   management_subnet_cidr_blocks = var.management_subnet_cidr_blocks
+  platform_subnet_cidr_blocks   = var.platform_subnet_cidr_blocks
   availability_zones            = var.availability_zones
   owner                         = var.owner
   environment                   = var.environment
