@@ -13,7 +13,7 @@ output "instance_public_ip" {
   value       = aws_instance.ec2_instance.*.public_ip
 }
 
-output "eip_instance_ids" {
-  description = "List of instance IDs associated with EIPs"
+output "instance_eip" {
+  description = "EIP attach to the ec2 instance"
   value       = aws_eip.instance[*].public_ip
 }
