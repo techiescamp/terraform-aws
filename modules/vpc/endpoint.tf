@@ -6,6 +6,16 @@ resource "aws_vpc_endpoint" "s3" {
   subnet_ids   = concat(
     aws_subnet.platform[*].id
   )
+  tags = merge(
+  {
+      Name        = "${var.environment}-${var.application}-s3-endpoint",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
+  },
+  var.tags
+  )
 }
 
 resource "aws_vpc_endpoint" "secrets_manager" {
@@ -16,6 +26,16 @@ resource "aws_vpc_endpoint" "secrets_manager" {
   subnet_ids   = concat(
     aws_subnet.platform[*].id
   )
+  tags = merge(
+  {
+      Name        = "${var.environment}-${var.application}-secrets-manager-endpoint",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
+  },
+  var.tags
+  )
 }
 
 resource "aws_vpc_endpoint" "cloudwatch_logs" {
@@ -25,5 +45,15 @@ resource "aws_vpc_endpoint" "cloudwatch_logs" {
 
   subnet_ids   = concat(
     aws_subnet.platform[*].id
+  )
+  tags = merge(
+  {
+      Name        = "${var.environment}-${var.application}-cloudwatch-endpoint",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
+  },
+  var.tags
   )
 }
