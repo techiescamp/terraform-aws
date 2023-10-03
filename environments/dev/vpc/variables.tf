@@ -105,4 +105,18 @@ variable "map_public_ip_on_launch" {
   description = "whether to map public ip on launch or not"
 }
 
+variable "create_s3_endpoint" {
+  type        = bool
+  description = "whether to create s3 endpoint or not"
+}
+
+variable "create_secrets_manager_endpoint" {
+  type        = bool
+  description = "whether to create secrets-manager endpoint or not"
+}
+
+variable "create_cloudwatch_logs_endpoint" {
+  type        = bool
+  description = "whether to create cloudwatch logs endpoint or not"
+}
 
