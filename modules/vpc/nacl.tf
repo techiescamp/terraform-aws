@@ -1,22 +1,28 @@
 resource "aws_network_acl" "public" {
     vpc_id = aws_vpc.main.id
 
-    egress {
-        protocol   = "-1"
-        rule_no    = 200
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "ingress" {
+        for_each = toset(range(length(var.ingress_public_nacl_from_port)))
+        content {
+            rule_no    = var.ingress_public_nacl_rule_no[ingress.key]
+            action     = var.ingress_public_nacl_action[ingress.key]
+            from_port  = var.ingress_public_nacl_from_port[ingress.key]
+            to_port    = var.ingress_public_nacl_to_port[ingress.key]
+            protocol   = var.ingress_public_nacl_protocol[ingress.key]
+            cidr_block = var.ingress_public_nacl_cidr_block[ingress.key]
+        }
     }
 
-    ingress {
-        protocol   = "-1"
-        rule_no    = 100
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "egress" {
+        for_each = toset(range(length(var.egress_public_nacl_from_port)))
+        content {
+            rule_no    = var.egress_public_nacl_rule_no[egress.key]
+            action     = var.egress_public_nacl_action[egress.key]
+            from_port  = var.egress_public_nacl_from_port[egress.key]
+            to_port    = var.egress_public_nacl_to_port[egress.key]
+            protocol   = var.egress_public_nacl_protocol[egress.key]
+            cidr_block = var.egress_public_nacl_cidr_block[egress.key]
+        }
     }
     tags = merge(
     {
@@ -33,22 +39,28 @@ resource "aws_network_acl" "public" {
 resource "aws_network_acl" "app" {
     vpc_id = aws_vpc.main.id
 
-    egress {
-        protocol   = "-1"
-        rule_no    = 200
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "ingress" {
+        for_each = toset(range(length(var.ingress_app_nacl_from_port)))
+        content {
+            rule_no    = var.ingress_app_nacl_rule_no[ingress.key]
+            action     = var.ingress_app_nacl_action[ingress.key]
+            from_port  = var.ingress_app_nacl_from_port[ingress.key]
+            to_port    = var.ingress_app_nacl_to_port[ingress.key]
+            protocol   = var.ingress_app_nacl_protocol[ingress.key]
+            cidr_block = var.ingress_app_nacl_cidr_block[ingress.key]
+        }
     }
 
-    ingress {
-        protocol   = "-1"
-        rule_no    = 100
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "egress" {
+        for_each = toset(range(length(var.egress_app_nacl_from_port)))
+        content {
+            rule_no    = var.egress_app_nacl_rule_no[egress.key]
+            action     = var.egress_app_nacl_action[egress.key]
+            from_port  = var.egress_app_nacl_from_port[egress.key]
+            to_port    = var.egress_app_nacl_to_port[egress.key]
+            protocol   = var.egress_app_nacl_protocol[egress.key]
+            cidr_block = var.egress_app_nacl_cidr_block[egress.key]
+        }
     }
     tags = merge(
     {
@@ -65,22 +77,28 @@ resource "aws_network_acl" "app" {
 resource "aws_network_acl" "db" {
     vpc_id = aws_vpc.main.id
 
-    egress {
-        protocol   = "-1"
-        rule_no    = 200
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "ingress" {
+        for_each = toset(range(length(var.ingress_db_nacl_from_port)))
+        content {
+            rule_no    = var.ingress_db_nacl_rule_no[ingress.key]
+            action     = var.ingress_db_nacl_action[ingress.key]
+            from_port  = var.ingress_db_nacl_from_port[ingress.key]
+            to_port    = var.ingress_db_nacl_to_port[ingress.key]
+            protocol   = var.ingress_db_nacl_protocol[ingress.key]
+            cidr_block = var.ingress_db_nacl_cidr_block[ingress.key]
+        }
     }
 
-    ingress {
-        protocol   = "-1"
-        rule_no    = 100
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "egress" {
+        for_each = toset(range(length(var.egress_db_nacl_from_port)))
+        content {
+            rule_no    = var.egress_db_nacl_rule_no[egress.key]
+            action     = var.egress_db_nacl_action[egress.key]
+            from_port  = var.egress_db_nacl_from_port[egress.key]
+            to_port    = var.egress_db_nacl_to_port[egress.key]
+            protocol   = var.egress_db_nacl_protocol[egress.key]
+            cidr_block = var.egress_db_nacl_cidr_block[egress.key]
+        }
     }
     tags = merge(
     {
@@ -97,22 +115,28 @@ resource "aws_network_acl" "db" {
 resource "aws_network_acl" "management" {
     vpc_id = aws_vpc.main.id
 
-    egress {
-        protocol   = "-1"
-        rule_no    = 200
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "ingress" {
+        for_each = toset(range(length(var.ingress_management_nacl_from_port)))
+        content {
+            rule_no    = var.ingress_management_nacl_rule_no[ingress.key]
+            action     = var.ingress_management_nacl_action[ingress.key]
+            from_port  = var.ingress_management_nacl_from_port[ingress.key]
+            to_port    = var.ingress_management_nacl_to_port[ingress.key]
+            protocol   = var.ingress_management_nacl_protocol[ingress.key]
+            cidr_block = var.ingress_management_nacl_cidr_block[ingress.key]
+        }
     }
 
-    ingress {
-        protocol   = "-1"
-        rule_no    = 100
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "egress" {
+        for_each = toset(range(length(var.egress_management_nacl_from_port)))
+        content {
+            rule_no    = var.egress_management_nacl_rule_no[egress.key]
+            action     = var.egress_management_nacl_action[egress.key]
+            from_port  = var.egress_management_nacl_from_port[egress.key]
+            to_port    = var.egress_management_nacl_to_port[egress.key]
+            protocol   = var.egress_management_nacl_protocol[egress.key]
+            cidr_block = var.egress_management_nacl_cidr_block[egress.key]
+        }
     }
     tags = merge(
     {
@@ -129,22 +153,28 @@ resource "aws_network_acl" "management" {
 resource "aws_network_acl" "platform" {
     vpc_id = aws_vpc.main.id
 
-    egress {
-        protocol   = "-1"
-        rule_no    = 200
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "ingress" {
+        for_each = toset(range(length(var.ingress_platform_nacl_from_port)))
+        content {
+            rule_no    = var.ingress_platform_nacl_rule_no[ingress.key]
+            action     = var.ingress_platform_nacl_action[ingress.key]
+            from_port  = var.ingress_platform_nacl_from_port[ingress.key]
+            to_port    = var.ingress_platform_nacl_to_port[ingress.key]
+            protocol   = var.ingress_platform_nacl_protocol[ingress.key]
+            cidr_block = var.ingress_platform_nacl_cidr_block[ingress.key]
+        }
     }
 
-    ingress {
-        protocol   = "-1"
-        rule_no    = 100
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
+    dynamic "egress" {
+        for_each = toset(range(length(var.egress_platform_nacl_from_port)))
+        content {
+            rule_no    = var.egress_platform_nacl_rule_no[egress.key]
+            action     = var.egress_platform_nacl_action[egress.key]
+            from_port  = var.egress_platform_nacl_from_port[egress.key]
+            to_port    = var.egress_platform_nacl_to_port[egress.key]
+            protocol   = var.egress_platform_nacl_protocol[egress.key]
+            cidr_block = var.egress_platform_nacl_cidr_block[egress.key]
+        }
     }
     tags = merge(
     {
