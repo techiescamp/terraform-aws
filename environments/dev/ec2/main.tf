@@ -2,6 +2,15 @@ provider "aws" {
   region = var.region
 }
 
+module "iam-policy" {
+  source                      = "../../../modules/iam-policy"
+  iam_policy_json_file        = var.iam_policy_json_file
+  owner                       = var.owner
+  environment                 = var.environment
+  cost_center                 = var.cost_center
+  application                 = var.application
+}
+
 module "ec2" {
   source             = "../../../modules/ec2"
   region             = var.region
@@ -10,23 +19,22 @@ module "ec2" {
   key_name           = var.key_name
   instance_count     = var.instance_count
   subnet_ids         = var.subnet_ids
-  name               = var.name
+  associate_public_ip_address = var.associate_public_ip_address
+  attach_instance_profile     = var.attach_instance_profile
+  iam_role                    = module.iam-policy.iam_role
+  security_group_ids          = module.security-group.security_group_ids
+  attach_eip                  = var.attach_eip
+  storage_size                = var.storage_size
   environment        = var.environment
   owner              = var.owner
   cost_center        = var.cost_center
   application        = var.application
-  security_group_ids = module.security-group.security_group_ids
+
 }
 
 module "security-group" {
   source      = "../../../modules/security-group"
   region      = var.region
-  tags        = var.tags
-  name        = var.name
-  environment = var.environment
-  owner       = var.owner
-  cost_center = var.cost_center
-  application = var.application
   vpc_id      = var.vpc_id
 
   ingress_cidr_from_port     = var.ingress_cidr_from_port
@@ -49,5 +57,11 @@ module "security-group" {
   egress_sg_protocol         = var.egress_sg_protocol
   egress_security_group_ids  = var.egress_security_group_ids
   create_egress_sg           = var.create_egress_sg
+
+  environment = var.environment
+  owner       = var.owner
+  cost_center = var.cost_center
+  application = var.application
 }
+
 
