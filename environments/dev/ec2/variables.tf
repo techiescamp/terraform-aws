@@ -33,15 +33,35 @@ variable "vpc_id" {
   description = "VPC ID for the security group"
 }
 
+variable "associate_public_ip_address" {
+  type        = bool
+  description = "Enable or disable public ip address"
+}
+
+variable "attach_instance_profile" {
+  type        = bool
+  description = "Attach instance profile or not"
+}
+
+variable "iam_policy_json_file" {
+  type        = string
+  description = "Name of the json file"
+}
+
+variable "attach_eip" {
+  type        = bool
+  description = "Attach eip or not"
+}
+
+variable "storage_size" {
+  type        = number
+  description = "Storage size of the instance"
+}
+
 variable "tags" {
   default     = {}
   type        = map(string)
   description = "Extra tags to attach to the security group resources"
-}
-
-variable "name" {
-  type        = string
-  description = "The name of the resources"
 }
 
 variable "environment" {
@@ -162,4 +182,10 @@ variable "create_egress_cidr" {
 variable "create_egress_sg" {
   type        = bool
   description = "Enable or disable Security Groups egress rules."
+}
+
+variable "iam_role" {
+  default     = null
+  description = "IAM role for the instance"
+  type        = string
 }

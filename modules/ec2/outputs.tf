@@ -12,3 +12,8 @@ output "instance_public_ip" {
   description = "The Public Ip address of the ec2 instance"
   value       = aws_instance.ec2_instance.*.public_ip
 }
+
+output "instance_eip" {
+  description = "EIP attach to the ec2 instance"
+  value       = aws_eip.instance[*].public_ip
+}

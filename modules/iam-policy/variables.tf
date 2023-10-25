@@ -23,3 +23,8 @@ variable "application" {
   type        = string
   description = "Name of the application"
 }
+
+variable "iam_policy_json_file" {
+  type        = string
+  description = "Name of the json file"
+}
