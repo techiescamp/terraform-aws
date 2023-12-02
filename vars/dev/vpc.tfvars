@@ -9,10 +9,16 @@ enable_dns_hostnames = true
 domain = "vpc"
 
 #nat-gateway
-create_nat_gateway = false
+create_nat_gateway = true
 
 #route-table
 destination_cidr_block = "0.0.0.0/0"
+
+#tags
+owner       = "techiescamp"
+environment = "dev"
+cost_center = "techiescamp-commerce"
+application = "ecommerce"
 
 #subnet
 map_public_ip_on_launch       = true
@@ -103,9 +109,3 @@ egress_platform_nacl_cidr_block = ["0.0.0.0/0"]
 create_s3_endpoint              = true
 create_secrets_manager_endpoint = true
 create_cloudwatch_logs_endpoint = true
-
-#tags
-owner       = "techiescamp"
-environment = "dev"
-cost_center = "techiescamp-commerce"
-application = "vpc"
