@@ -419,6 +419,3 @@ variable "egress_platform_nacl_cidr_block" {
   type        = list(string)
   description = "List of platform nacl egress cidr block "
 }
-
-
-

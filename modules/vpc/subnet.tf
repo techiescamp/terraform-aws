@@ -94,3 +94,27 @@ resource "aws_route_table_association" "management" {
   subnet_id      = aws_subnet.management[count.index].id
   route_table_id = aws_route_table.management.id
 }
+
+resource "aws_subnet" "platform" {
+  count             = length(var.platform_subnet_cidr_blocks)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.platform_subnet_cidr_blocks[count.index]
+  availability_zone = var.availability_zones[count.index]
+
+  tags = merge(
+    {
+      Name        = "${var.environment}-${var.application}-platform-subnet-${count.index}",
+      Environment = var.environment,
+      Owner       = var.owner,
+      CostCenter  = var.cost_center,
+      Application = var.application
+    },
+    var.tags
+  )
+}
+
+resource "aws_route_table_association" "platform" {
+  count          = length(aws_subnet.platform)
+  subnet_id      = aws_subnet.platform[count.index].id
+  route_table_id = aws_route_table.platform.id
+}
