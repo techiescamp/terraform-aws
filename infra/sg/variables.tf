@@ -3,6 +3,11 @@ variable "region" {
   description = "Region of the security group."
 }
 
+variable "sg_name" {
+  type        = string
+  description = "Name of the security group for the instance."
+}
+
 variable "vpc_id" {
   type        = string
   description = "ID of the VPC associated with the security group."
@@ -12,6 +17,11 @@ variable "tags" {
   default     = {}
   type        = map(string)
   description = "Extra tags to attach to the EC2 security group resources."
+}
+
+variable "name" {
+  type        = string
+  description = "The name of the resources."
 }
 
 variable "environment" {
@@ -71,7 +81,6 @@ variable "ingress_sg_protocol" {
 
 variable "ingress_security_group_ids" {
   type        = list(string)
-  default     = [ "sg-0fe4363da3994c100" ]
   description = "List of Security Group ids for sg ingress rules of the EC2 security group."
 }
 
@@ -112,7 +121,6 @@ variable "egress_sg_protocol" {
 
 variable "egress_security_group_ids" {
   type        = list(string)
-  default     = [ "sg-0fe4363da3994c100" ]
   description = "List of Security Group ids for sg egress rules of the EC2 security group."
 }
 

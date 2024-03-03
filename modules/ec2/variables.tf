@@ -34,11 +34,6 @@ variable "tags" {
   description = "Extra tags to attach to the ec2-sg resources"
 }
 
-variable "name" {
-  type        = string
-  description = "The name of the resources."
-}
-
 variable "environment" {
   type        = string
   description = "The environment name for the resources."
@@ -64,3 +59,29 @@ variable "security_group_ids" {
   type        = list(string)
 }
 
+variable "associate_public_ip_address" {
+  type        = bool
+  description = "Enable or disable public ip address"
+}
+
+variable "attach_instance_profile" {
+  default     = false
+  type        = bool
+  description = "Attach instance profile or not"
+}
+
+variable "attach_eip" {
+  type        = bool
+  description = "Attach eip or not"
+}
+
+variable "storage_size" {
+  type        = number
+  description = "Storage size of the instance"
+}
+
+variable "iam_role" {
+  default     = null
+  description = "IAM role for the instance"
+  type        = string
+}
