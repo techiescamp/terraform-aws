@@ -1,6 +1,6 @@
 region = "us-west-2"
 
-domain_name                                 = "stage.devopsproject.dev"
+domain_name                                 = "prom.devopsproject.dev"
 validation_method                           = "DNS"
 key_algorithm                               = "RSA_2048"
 certificate_transparency_logging_preference = "DISABLED"
