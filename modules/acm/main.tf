@@ -23,14 +23,10 @@ resource "aws_acm_certificate" "ssl_cert" {
   )
 }
 
-resource "aws_route53_zone" "dns_zone" {
+data "aws_route53_zone" "dns_zone" {
   name         = var.dns_domain_name
+  private_zone = false
 }
-
-# data "aws_route53_zone" "dns_zone" {
-#   name         = var.dns_domain_name
-#   private_zone = false
-# }
 
 resource "aws_route53_record" "acm_record" {
   for_each = {
@@ -46,5 +42,5 @@ resource "aws_route53_record" "acm_record" {
   records         = [each.value.record]
   ttl             = 300
   type            = each.value.type
-  zone_id         = aws_route53_zone.dns_zone.zone_id # add 'data' if you are using data
+  zone_id         = data.aws_route53_zone.dns_zone.zone_id 
 }
