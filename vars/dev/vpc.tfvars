@@ -21,7 +21,7 @@ cost_center = "techiescamp-commerce"
 application = "ecommerce"
 
 
-map_public_ip_on_launch       = true
+map_public_ip_on_launch = true
 
 #subnets
 public_subnet_cidr_blocks     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
@@ -31,7 +31,7 @@ management_subnet_cidr_blocks = ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24"]
 platform_subnet_cidr_blocks   = ["10.0.13.0/24", "10.0.14.0/24", "10.0.15.0/24"]
 
 # Availability Zones
-availability_zones            = ["us-west-2a", "us-west-2b", "us-west-2c"]
+availability_zones = ["us-west-2a", "us-west-2b", "us-west-2c"]
 
 
 #Public Subnet NACL
