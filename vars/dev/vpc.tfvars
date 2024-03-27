@@ -1,5 +1,5 @@
 #vpc
-region               = "us-west-2"
+region               = "us-east-1"
 vpc_cidr_block       = "10.0.0.0/16"
 instance_tenancy     = "default"
 enable_dns_support   = true
@@ -31,7 +31,7 @@ management_subnet_cidr_blocks = ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24"]
 platform_subnet_cidr_blocks   = ["10.0.13.0/24", "10.0.14.0/24", "10.0.15.0/24"]
 
 # Availability Zones
-availability_zones            = ["us-west-2a", "us-west-2b", "us-west-2c"]
+availability_zones            = ["us-east-1a", "us-east-1b", "us-east-1c"]
 
 
 #Public Subnet NACL
