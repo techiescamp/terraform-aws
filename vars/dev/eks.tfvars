@@ -1,8 +1,8 @@
-region = "us-west-2"
+region = "us-east-1"
 
 cluster_name       = "terraform-eks-cluster-poc"
 role_name          = "eks-cluster-role"
-vpc_subnets        = ["subnet-02ffe5c35f8b088b1", "subnet-0c424ee28097003e9"]
+vpc_subnets        = ["subnet-03c33b4633dd505c1", "subnet-083123fb35759288d"]
 node_group_name    = "terraform-eks-node-group"
 node_instance_type = ["t3.medium"]
 node_disk_size     = 20
