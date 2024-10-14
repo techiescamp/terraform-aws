@@ -14,10 +14,10 @@ policy_arns        = [
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   ]
 eks_addons         = {
-    "coredns"                = "v1.11.1-eksbuild.9"
-    "vpc-cni"                = "v1.18.3-eksbuild.1"
-    "kube-proxy"             = "v1.29.3-eksbuild.5"
-    "eks-pod-identity-agent" = "v1.3.0-eksbuild.1"
+    "coredns"                = "v1.11.3-eksbuild.1"
+    "vpc-cni"                = "v1.18.5-eksbuild.1"
+    "kube-proxy"             = "v1.30.3-eksbuild.9"
+    "eks-pod-identity-agent" = "v1.3.2-eksbuild.2"
   }
 principal_arn      = "arn:aws:iam::533267438617:root"
 kubernetes_groups  = ["group-1"]
