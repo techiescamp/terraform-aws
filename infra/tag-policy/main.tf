@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "tag-policy" {
-  source      = "../../../modules/tag-policy"
+  source      = "../../modules/tag-policy"
   region      = var.region
   policy_name = var.policy_name
   policy_type = var.policy_type

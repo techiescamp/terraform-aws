@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "eks-cluster" {
-  source             = "../modules/eks"
+  source             = "../../modules/eks"
   cluster_name       = var.cluster_name
   role_name          = var.role_name
   vpc_subnets        = var.vpc_subnets
