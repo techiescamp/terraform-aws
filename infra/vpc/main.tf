@@ -1,12 +1,12 @@
-terraform {
-  backend "s3" {}
-}
+# terraform {
+#   backend "s3" {}
+# }
 provider "aws" {
   region = var.region
 }
 
 module "vpc" {
-  source                             = "../../../modules/vpc"
+  source                             = "../../modules/vpc"
   region                             = var.region
   vpc_cidr_block                     = var.vpc_cidr_block
   instance_tenancy                   = var.instance_tenancy

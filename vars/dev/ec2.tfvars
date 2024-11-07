@@ -1,20 +1,20 @@
 #IAM Policy
-iam_policy_json_file        = "ec2.json"
+iam_policy_json_file = "ec2.json"
 
 # EC2 Instance Variables
-region         = "us-west-2"
-ami_id         = "ami-0e8ffa060937e44c7"
-instance_type  = "t2.micro"
-key_name       = "techiescamp"
-instance_count = 1
-subnet_ids     = ["subnet-034b5b81e1ee5e653", "subnet-0bfbbe8efe880be15", "subnet-059ad803aa3c5d9c5"]
+region                      = "us-west-2"
+ami_id                      = "ami-0e8ffa060937e44c7"
+instance_type               = "t2.micro"
+key_name                    = "techiescamp"
+instance_count              = 1
+subnet_ids                  = ["subnet-034b5b81e1ee5e653", "subnet-0bfbbe8efe880be15", "subnet-059ad803aa3c5d9c5"]
 associate_public_ip_address = true
 attach_instance_profile     = true
 attach_eip                  = false
 storage_size                = 30
 
 # EC2 Security Group Variables
-vpc_id  = "vpc-062e91b98392ca9a2"
+vpc_id = "vpc-062e91b98392ca9a2"
 
 # Tag Keys
 owner       = "techiescamp"
