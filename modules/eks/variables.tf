@@ -33,10 +33,10 @@ variable "policy_arns" {
   type        = list(string)
 }
 
-variable "eks_addons" {
-  description = "List of EKS addons and their versions"
-  type = map(string)
-}
+# variable "eks_addons" {
+#   description = "List of EKS addons and their versions"
+#   type = map(string)
+# }
 
 variable "principal_arn" {
   description = "The ARN of the principal"
