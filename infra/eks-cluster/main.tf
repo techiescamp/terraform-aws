@@ -11,10 +11,10 @@ module "eks-cluster" {
   node_instance_type = var.node_instance_type
   node_disk_size     = var.node_disk_size
   policy_arns        = var.policy_arns
-  # eks_addons         = var.eks_addons
   principal_arn      = var.principal_arn
   kubernetes_groups  = var.kubernetes_groups
   access_policy_arn  = var.access_policy_arn
+  vpc_id             = var.vpc_id
 }
 
 # provider "aws" {

@@ -33,11 +33,6 @@ variable "policy_arns" {
   type        = list(string)
 }
 
-# variable "eks_addons" {
-#   description = "List of EKS addons and their versions"
-#   type = map(string)
-# }
-
 variable "principal_arn" {
   description = "The ARN of the principal"
   type        = string
@@ -50,5 +45,12 @@ variable "kubernetes_groups" {
 
 variable "access_policy_arn" {
   description = "The ARN of the access policy"
+  type        = string
+}
+
+# Security group variables
+
+variable "vpc_id" {
+  description = "The ID of the VPC where the EKS cluster will be deployed"
   type        = string
 }

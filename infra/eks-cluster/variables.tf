@@ -58,14 +58,12 @@ variable "access_policy_arn" {
   type        = string
 }
 
+# Security group variables
 
-
-# addons
-# variable "cluster_addons" {
-#   description = "List of addon names to install (use most recent version)"
-#   type        = list(string)
-# }
-
+variable "vpc_id" {
+  description = "The ID of the VPC where the EKS cluster will be deployed"
+  type        = string
+}
 
 
 # Karpenter
