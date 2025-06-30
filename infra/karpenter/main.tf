@@ -1,27 +1,4 @@
 provider "aws" {
-  region = var.region
-}
-
-module "eks-cluster" {
-  source             = "../../modules/eks"
-  cluster_name       = var.cluster_name
-  role_name          = var.role_name
-  vpc_subnets        = var.vpc_subnets
-  node_group_name    = var.node_group_name
-  node_instance_type = var.node_instance_type
-  node_disk_size     = var.node_disk_size
-  policy_arns        = var.policy_arns
-  principal_arn      = var.principal_arn
-  kubernetes_groups  = var.kubernetes_groups
-  access_policy_arn  = var.access_policy_arn
-  vpc_id             = var.vpc_id
-}
-
-# provider "aws" {
-#   region = local.region
-# }
-
-provider "aws" {
   region = "us-west-2"
   alias  = "virginia"
 }
@@ -49,23 +26,19 @@ resource "aws_ec2_tag" "security_groups" {
 data "aws_eks_cluster" "cert_authority_data" {
   provider = aws.virginia
   name     = var.cluster_name
-
-  depends_on = [ module.eks-cluster ]
 }
 
 data "aws_eks_cluster_auth" "cluster_auth" {
   provider = aws.virginia
   name     = data.aws_eks_cluster.cert_authority_data.name
-
-  depends_on = [ module.eks-cluster ]
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     host                   = data.aws_eks_cluster.cert_authority_data.endpoint
     cluster_ca_certificate = base64decode(data.aws_eks_cluster.cert_authority_data.certificate_authority[0].data)
 
-    exec {
+    exec = {
       api_version = "client.authentication.k8s.io/v1beta1"
       command     = "aws"
       args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.cert_authority_data.name, "--region", local.region]
@@ -159,9 +132,6 @@ module "karpenter" {
   access_entry_type                       = var.access_entry_type
   create_instance_profile                 = var.create_instance_profile
   rule_name_prefix                        = var.rule_name_prefix
-
-  depends_on = [ module.eks-cluster ]
-
 }
 
 module "karpenter_disabled" {
@@ -192,9 +162,6 @@ resource "helm_release" "karpenter" {
       interruptionQueue: ${module.karpenter.queue_name}
     EOT
   ]
-
-  depends_on = [ module.eks-cluster ]
-
 }
 
 resource "kubectl_manifest" "karpenter_node_class" {
