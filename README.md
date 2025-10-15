@@ -1,178 +1,201 @@
-# terraform-awsAdd commentMore actions
-Terraform AWS provisioning examples for beginners
+# terraform-aws
 
-## Hit the Star! ⭐
-If you are planning to use this Terraform repo for learning, please hit the star. Thanks!
+Examples for provisioning AWS with Terraform using simple environment layouts.
 
-## Terraform Init With s3 Backend
+If this repo helps you, please ⭐ it.
 
-```
+---
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Init with S3 Backend](#init-with-s3-backend)
+- [VPC Provisioning](#vpc-provisioning)
+- [RDS Provisioning](#rds-provisioning)
+- [ALB + ASG Provisioning](#alb--asg-provisioning)
+- [EC2 Provisioning](#ec2-provisioning)
+- [AWS Organization Tag Policy](#aws-organization-tag-policy)
+- [Terraform Command Reference](#terraform-command-reference)
+- [Notes](#notes)
+
+---
+
+## Prerequisites
+
+- Terraform installed
+- AWS credentials configured (e.g., `aws configure`)
+- S3 bucket and DynamoDB table for remote state and locking (if using the backend example)
+
+---
+
+
+## Init with S3 Backend
+
+Use this when your workspace uses an S3 remote backend with DynamoDB locking.
+
+```sh
 terraform init \
-    -backend-config="key=dev/vpc.tfstate" \
-    -backend-config="bucket=dcube-terraform-state" \
-    -backend-config="region=us-west-2" \
-    -backend-config="dynamodb_table=terraform-state-lock" \
-    -var-file=../../../vars/dev/vpc.tfvars
-```
+  -backend-config="key=dev/vpc.tfstate" \
+  -backend-config="bucket=dcube-terraform-state" \
+  -backend-config="region=us-west-2" \
+  -backend-config="dynamodb_table=terraform-state-lock" \
+  -var-file=../../../vars/dev/vpc.tfvars
+````
 
-#### VPC Provisioning
+> Adjust `key`, `bucket`, `region`, and `dynamodb_table` to your setup.
 
-cd into the `environments/dev/vpc` directory and run the following commands:
+---
 
-1. Init Terraform in the directory `environments/dev/vpc`
+## VPC Provisioning
 
-```
+From `environments/dev/vpc`:
+
+```sh
+# 1) Initialize
 terraform init
-```
-2. To preview the changes in code
 
-```
+# 2) Preview
 terraform plan -var-file=../../../vars/dev/vpc.tfvars
-```
-3. To apply the changes
 
-```
+# 3) Apply
 terraform apply -var-file=../../../vars/dev/vpc.tfvars
-```
-4. To destroy the resources created using the code
 
-```
+# 4) Destroy (when needed)
 terraform destroy -var-file=../../../vars/dev/vpc.tfvars
-
-
-#### RDS Provisioning
-
-cd into the `environments/dev/rds` directory and run the following commands:
-
-1. Init Terraform in the directory `environments/dev/rds`
-
 ```
+
+---
+
+## RDS Provisioning
+
+From `environments/dev/rds`:
+
+```sh
 terraform init
-```
-2. To preview the changes in code
-
-```
-terraform plan -var-file=../../../vars/dev/rds.tfvars
-```
-3. To apply the changes
-
-```
-terraform apply -var-file=../../../vars/dev/rds.tfvars
-```
-4. To destroy the resources created using the code
-
-```
+terraform plan   -var-file=../../../vars/dev/rds.tfvars
+terraform apply  -var-file=../../../vars/dev/rds.tfvars
 terraform destroy -var-file=../../../vars/dev/rds.tfvars
 ```
 
-### ALB and ASG Provisioning
+---
 
-cd into the `environments/dev/alb-asg` directory and run the following commands:
+## ALB + ASG Provisioning
 
-1. Init Terraform in the directory `environments/dev/alb-asg`
+From `environments/dev/alb-asg`:
 
-```
+```sh
 terraform init
-```
-2. To preview the changes in code
-
-```
-terraform plan -var-file=../../../vars/dev/alb-asg.tfvars
-```
-3. To apply the changes
-
-```
-terraform apply -var-file=../../../vars/dev/alb-asg.tfvars
-```
-4. To destroy the resources created using the code
-
-```
+terraform plan   -var-file=../../../vars/dev/alb-asg.tfvars
+terraform apply  -var-file=../../../vars/dev/alb-asg.tfvars
 terraform destroy -var-file=../../../vars/dev/alb-asg.tfvars
 ```
 
-## EC2 Instance Provisioning
+---
 
-1. Navigate to the `environment/dev` folder:
+## EC2 Provisioning
 
-```bash
-cd environment/dev
-```
+From `environments/dev/ec2` (edit `vars/dev/ec2.tfvars` first):
 
-2. Open the `ec2.tfvars` file and modify it with your desired details. This file contains variables used in the Terraform configuration.
-
-### Deployment
-
-1. Initialize Terraform in the working directory:
-
-```bash
+```sh
 terraform init
-```
-
-2. Create an execution plan:
-
-```bash
-terraform plan -var-file=../../../vars/dev/ec2.tfvars
-```
-
-3. Apply the changes to create the EC2 instance:
-
-```bash
-terraform apply -var-file=../../../vars/dev/ec2.tfvars
-```
-
-4. To destroy the EC2 instance and associated resources:
-
-```bash
+terraform plan   -var-file=../../../vars/dev/ec2.tfvars
+terraform apply  -var-file=../../../vars/dev/ec2.tfvars
 terraform destroy -var-file=../../../vars/dev/ec2.tfvars
 ```
 
-**Note**: Always review the execution plan (`terraform plan`) before applying changes to avoid unintended modifications.
+> Always review the plan before applying.
 
-## AWS Organization Tag Policy Creation.
+---
 
-1. Navigate to the `environment/dev` folder:
+## AWS Organization Tag Policy
 
-```bash
-cd environment/tag-policy
-```
+From `environments/dev/tag-policy` (edit `vars/dev/tag-policy.tfvars` as needed):
 
-2. Open the `tag-policy.tfvars` file and modify it with your desired details. This file contains variables used in the Terraform configuration.
-
-### Deployment
-
-1. Initialize Terraform in the working directory:
-
-```bash
+```sh
 terraform init
-```
-
-2. Create an execution plan:
-
-```bash
-terraform plan -var-file=../../../vars/dev/tag-policy.tfvars
-```
-
-3. Apply the changes to create the Tag Policy:
-
-```bash
-terraform apply -var-file=../../../vars/dev/tag-policy.tfvars
-```
-
-4. To destroy the Tag Policy:
-
-```bash
+terraform plan   -var-file=../../../vars/dev/tag-policy.tfvars
+terraform apply  -var-file=../../../vars/dev/tag-policy.tfvars
 terraform destroy -var-file=../../../vars/dev/tag-policy.tfvars
 ```
 
-**Note**: Always review the execution plan (`terraform plan`) before applying changes to avoid unintended modifications.
+---
+
+## EKS + Karpenter Deployment
+
+This section covers deploying an Amazon EKS cluster with Karpenter for dynamic node provisioning.
+
+### Prerequisites
+
+- AWS CLI configured with necessary permissions
+- `kubectl` installed
+- AWS IAM permissions for EKS and Karpenter operations
+
+### 1. Deploy EKS Cluster
+
+From `infra/eks-cluster`:
+
+```sh
+# Initialize with backend config
+terraform init 
+
+# Plan and review changes
+terraform plan -var-file=../../vars/dev/eks.tfvars
+
+# Apply the configuration
+terraform apply -var-file=../../vars/dev/eks.tfvars
+```
+
+### 2. Deploy Karpenter
+
+From `infra/eks-karpenter`:
+
+```sh
+# Initialize with backend config
+terraform init
+
+# Plan and review changes
+terraform plan -var-file=../../vars/dev/karpenter.tfvars
+
+# Apply the configuration
+terraform apply -var-file=../../vars/dev/karpenter.tfvars
+```
+
+### 3. Verify Installation
+
+After deployment:
+
+```sh
+# Update kubeconfig
+aws eks update-kubeconfig --region <your-region> --name <cluster-name>
+
+# Verify Karpenter pods
+kubectl get pods -n karpenter
+```
+
+---
 
 ## Terraform Command Reference
 
-Update all outputs:
+Refresh state (re-reads remote objects and updates outputs):
 
-<pre>terraform refresh</pre>
+```sh
+terraform refresh
+```
 
-Show all outputs:
+Show current state and outputs:
 
-<pre>terraform show</pre>
+```sh
+terraform show
+```
+
+---
+
+## Notes
+
+* Run Terraform **inside** an environment folder (e.g., `environments/dev/vpc`).
+* Variable files live under `vars/dev/*.tfvars`.
+* Backend config values in examples are placeholders—change them to match your infra.
+
+---
+
 
