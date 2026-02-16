@@ -1,7 +1,7 @@
 # General
 create       = true
 tags         = {}
-cluster_name = "terraform-eks-cluster-poc"
+cluster_name = "eks-spot-cluster"
 
 # Karpenter controller IAM Role
 create_iam_role                   = true
